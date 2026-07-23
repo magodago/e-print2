@@ -522,7 +522,7 @@ class FogCloud {
     this.targetIdx = (this.colorIdx + 1 + Math.floor(Math.random() * (COLORS.length - 1))) % COLORS.length;
     this.color = [...COLORS[this.colorIdx]];
     this.transition = Math.random();
-    this.speed = Math.random() * 0.002 + 0.001;
+    this.speed = Math.random() * 0.003 + 0.002;
     this.reset();
   }
   reset() {
