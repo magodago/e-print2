@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-print 2 · 数码印刷 · 高品质商业印刷</title>
+<style>
+/* ═══════════════════════════════════════════════════
+   E-PRINT 2 — Premium Chinese-Facing Landing Page
+   ═══════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+
+:root {
+  --c1: #ff2d55;
+  --c2: #ff6b35;
+  --c3: #ffd700;
+  --c4: #00e5ff;
+  --c5: #7c4dff;
+  --c6: #00e676;
+  --bg-dark: #0d0d1a;
+  --bg-card: rgba(255,255,255,0.04);
+  --text: #f0f0f5;
+  --text-muted: rgba(255,255,255,0.5);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Noto Sans SC', -apple-system, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ─── ANIMATED BACKGROUND ─────────────────────────── */
+
+.bg-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ─── NAVBAR ─────────────────────────────────────── */
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 18px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(13,13,26,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: transform 0.3s;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+}
+
+.logo-placeholder {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--c1), var(--c5));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 20px;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 0 30px rgba(124,77,255,0.3);
+}
+
+.logo-text {
+  font-weight: 900;
+  font-size: 22px;
+  background: linear-gradient(135deg, var(--c4), var(--c3));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.logo-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 400;
+  letter-spacing: 2px;
+  -webkit-text-fill-color: var(--text-muted);
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.3s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--c1), var(--c3));
+  transition: width 0.3s;
+}
+
+.nav-links a:hover { color: #fff; }
+.nav-links a:hover::after { width: 100%; }
+
+/* ─── HERO ────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 60px;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 100px;
+  background: rgba(255,45,85,0.15);
+  border: 1px solid rgba(255,45,85,0.3);
+  font-size: 13px;
+  color: var(--c1);
+  font-weight: 500;
+  margin-bottom: 30px;
+  animation: fadeInUp 0.8s ease;
+}
+
+.hero h1 {
+  font-size: clamp(40px, 8vw, 80px);
+  font-weight: 900;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  animation: fadeInUp 0.8s ease 0.1s both;
+}
+
+.hero h1 .gradient-text {
+  background: linear-gradient(135deg, var(--c1), var(--c3), var(--c4), var(--c5));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 300% 300%;
+  animation: gradientShift 4s ease infinite;
+}
+
+.hero-sub {
+  font-size: clamp(16px, 2.5vw, 24px);
+  color: var(--text-muted);
+  max-width: 640px;
+  margin-bottom: 40px;
+  animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 40px;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(135deg, var(--c1), var(--c5));
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: fadeInUp 0.8s ease 0.3s both;
+  box-shadow: 0 4px 30px rgba(255,45,85,0.3);
+}
+
+.hero-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px rgba(255,45,85,0.5);
+}
+
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  margin-top: 60px;
+  animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+.hero-stat { text-align: center; }
+
+.hero-stat-number {
+  font-size: 32px;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--c3), var(--c4));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-stat-label {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ─── SECTION COMMON ──────────────────────────────── */
+
+.section {
+  position: relative;
+  z-index: 1;
+  padding: 100px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-label {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--c4);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 900;
+  margin-bottom: 16px;
+}
+
+.section-desc {
+  font-size: 16px;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin-bottom: 50px;
+  line-height: 1.8;
+}
+
+/* ─── PRODUCTS ────────────────────────────────────── */
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+.product-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 20px;
+  padding: 40px 32px;
+  transition: transform 0.4s, box-shadow 0.4s, border-color 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--c1), var(--c3), var(--c4));
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  border-color: rgba(255,255,255,0.12);
+}
+
+.product-card:hover::before { opacity: 1; }
+
+.product-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.product-icon.menus {
+  background: linear-gradient(135deg, rgba(255,45,85,0.2), rgba(255,107,53,0.2));
+  color: var(--c2);
+}
+
+.product-icon.catalogs {
+  background: linear-gradient(135deg, rgba(0,229,255,0.2), rgba(124,77,255,0.2));
+  color: var(--c4);
+}
+
+.product-card h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.product-card p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  line-height: 1.7;
+}
+
+/* ─── PRICING TABLE ───────────────────────────────── */
+
+.pricing-table {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pricing-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.pricing-row:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.1);
+}
+
+.pricing-row .qty {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.pricing-row .qty span {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.pricing-row .price {
+  font-weight: 900;
+  font-size: 20px;
+  background: linear-gradient(135deg, var(--c3), var(--c4));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pricing-row .price .euro {
+  font-size: 14px;
+  -webkit-text-fill-color: var(--c3);
+}
+
+.pricing-row.popular {
+  background: rgba(255,215,0,0.06);
+  border-color: rgba(255,215,0,0.2);
+  position: relative;
+}
+
+.pricing-row.popular::after {
+  content: '推荐';
+  position: absolute;
+  top: -8px;
+  right: 18px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--c3), var(--c2));
+  color: #fff;
+}
+
+.pricing-cta {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px dashed rgba(255,255,255,0.15);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+}
+
+.pricing-cta:hover {
+  border-color: var(--c4);
+  color: var(--c4);
+  background: rgba(0,229,255,0.05);
+}
+
+/* ─── FEATURES ────────────────────────────────────── */
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.feature-item {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 28px 24px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.feature-item:hover { transform: translateY(-4px); }
+
+.feature-icon {
+  font-size: 36px;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.feature-item h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.feature-item p {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ─── CONTACT ─────────────────────────────────────── */
+
+.contact-section {
+  background: linear-gradient(135deg, rgba(255,45,85,0.08), rgba(124,77,255,0.08));
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 24px;
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.contact-section h2 {
+  font-size: 32px;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+
+.contact-section p {
+  color: var(--text-muted);
+  margin-bottom: 30px;
+}
+
+.contact-methods {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--bg-card);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.contact-btn:hover {
+  border-color: var(--c4);
+  background: rgba(0,229,255,0.08);
+  transform: translateY(-2px);
+}
+
+.contact-btn.primary {
+  background: linear-gradient(135deg, var(--c1), var(--c5));
+  border: none;
+  font-weight: 700;
+}
+
+.contact-btn.primary:hover {
+  box-shadow: 0 8px 30px rgba(255,45,85,0.3);
+}
+
+/* ─── FOOTER ──────────────────────────────────────── */
+
+footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 40px 24px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ─── ANIMATIONS ──────────────────────────────────── */
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────── */
+
+@media (max-width: 768px) {
+  nav { padding: 14px 20px; }
+  .nav-links { display: none; }
+  .hero-stats { flex-wrap: wrap; gap: 24px; justify-content: center; }
+  .products-grid { grid-template-columns: 1fr; }
+  .contact-section { padding: 40px 24px; }
+  .contact-methods { flex-direction: column; align-items: stretch; }
+  .contact-btn { justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── ANIMATED BACKGROUND ──────────────────────── -->
+
+<canvas class="bg-canvas" id="bgCanvas"></canvas>
+
+<!-- ─── NAVBAR ────────────────────────────────────── -->
+
+<nav>
+  <a href="#" class="logo">
+    <img src="logo.png" alt="E-print 2" style="height:48px;width:auto;border-radius:8px;">
+    <div>
+      <div class="logo-text">E-print 2</div>
+      <div class="logo-sub">数码印刷</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#products">产品</a></li>
+    <li><a href="#features">优势</a></li>
+    <li><a href="#contact">联系我们</a></li>
+  </ul>
+</nav>
+
+<!-- ─── HERO ──────────────────────────────────────── -->
+
+<section class="hero">
+  <div class="hero-badge">🔥 高品质数码印刷 · 极速交货</div>
+  <h1>
+    让您的品牌<br>
+    <span class="gradient-text">精彩绽放</span>
+  </h1>
+  <p class="hero-sub">
+    专业数码印刷 · 菜单 · 产品目录 · 宣传册 · 海报<br>
+    中国企业信赖的印刷合作伙伴
+  </p>
+  <a href="#products" class="hero-cta">
+    查看产品与报价
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </a>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-number">1000+</div>
+      <div class="hero-stat-label">合作企业</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-number">48h</div>
+      <div class="hero-stat-label">快速交货</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-number">98%</div>
+      <div class="hero-stat-label">客户满意度</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRODUCTS ──────────────────────────────────── -->
+
+<section class="section" id="products">
+  <div class="section-label">✦ 产品与报价</div>
+  <h2 class="section-title">高品质印刷 · 批发价格</h2>
+  <p class="section-desc">
+    我们专为企业提供批量印刷服务。所有产品支持定制尺寸、纸张和工艺。
+    以下价格为起批量价格，含基础设计排版服务。
+  </p>
+
+  <div class="products-grid">
+
+    <!-- Menu Cards -->
+    <div class="product-card">
+      <div class="product-icon menus">📋</div>
+      <h3>餐厅菜单</h3>
+      <p>
+        高档覆膜菜单 · 多折页设计 · 防水防油<br>
+        封面300g铜版纸 + 内页200g铜版纸 · 覆亚膜
+      </p>
+      <div class="pricing-table">
+        <div class="pricing-row popular">
+          <span class="qty">1,000 <span>份起</span></span>
+          <span class="price">60 <span class="euro">€</span></span>
+        </div>
+        <div class="pricing-row">
+          <span class="qty">2,000 <span>份</span></span>
+          <span class="price">99 <span class="euro">€</span></span>
+        </div>
+        <div class="pricing-row">
+          <span class="qty">5,000 <span>份</span></span>
+          <span class="price">250 <span class="euro">€</span></span>
+        </div>
+        <button class="pricing-cta">📩 咨询此产品</button>
+      </div>
+    </div>
+
+    <!-- Product Catalogs -->
+    <div class="product-card">
+      <div class="product-icon catalogs">📚</div>
+      <h3>产品目录</h3>
+      <p>
+        全彩印刷 · 胶装或骑马钉 · 封面烫金/UV可选<br>
+        封面250g特种纸 + 内页157g铜版纸 · 亮光印刷
+      </p>
+      <div class="pricing-table">
+        <div class="pricing-row popular">
+          <span class="qty">1,000 <span>本起</span></span>
+          <span class="price">60 <span class="euro">€</span></span>
+        </div>
+        <div class="pricing-row">
+          <span class="qty">2,000 <span>本</span></span>
+          <span class="price">99 <span class="euro">€</span></span>
+        </div>
+        <div class="pricing-row">
+          <span class="qty">5,000 <span>本</span></span>
+          <span class="price">250 <span class="euro">€</span></span>
+        </div>
+        <button class="pricing-cta">📩 咨询此产品</button>
+      </div>
+    </div>
+
+    <!-- Custom -->
+    <div class="product-card">
+      <div class="product-icon" style="background:linear-gradient(135deg,rgba(0,230,118,0.2),rgba(0,229,255,0.2));color:var(--c6)">✨</div>
+      <h3>定制印刷</h3>
+      <p>
+        宣传册 · 传单 · 海报 · 名片 · 包装盒<br>
+        任何尺寸 · 任何纸张 · 任何工艺<br>
+        联系我们获取定制报价
+      </p>
+      <div class="pricing-table">
+        <div class="pricing-row" style="justify-content:center;gap:8px;cursor:pointer;">
+          <span style="font-size:14px;color:var(--text-muted)">📞 按需定制 · 联系我们获取报价</span>
+        </div>
+        <button class="pricing-cta" style="border-style:solid;border-color:rgba(0,229,255,0.3);color:var(--c4);margin-top:6px;">💬 联系定制</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── FEATURES ──────────────────────────────────── -->
+
+<section class="section" id="features">
+  <div class="section-label">✦ 为什么选择我们</div>
+  <h2 class="section-title">中国企业信赖 E-print 2</h2>
+  <p class="section-desc">
+    我们深入了解中国企业的需求，提供最适合的印刷解决方案。
+  </p>
+
+  <div class="features-grid">
+    <div class="feature-item">
+      <span class="feature-icon">🚀</span>
+      <h4>极速交货</h4>
+      <p>48小时内发货，满足您的紧急需求</p>
+    </div>
+    <div class="feature-item">
+      <span class="feature-icon">🎨</span>
+      <h4>专业设计</h4>
+      <p>免费基础排版设计，让您的产品更专业</p>
+    </div>
+    <div class="feature-item">
+      <span class="feature-icon">🛡️</span>
+      <h4>品质保证</h4>
+      <p>进口印刷设备，色彩精准，质量稳定</p>
+    </div>
+    <div class="feature-item">
+      <span class="feature-icon">🌍</span>
+      <h4>国际物流</h4>
+      <p>可配送至中国及全球各地</p>
+    </div>
+    <div class="feature-item">
+      <span class="feature-icon">💬</span>
+      <h4>中文服务</h4>
+      <p>全程中文沟通，下单无忧</p>
+    </div>
+    <div class="feature-item">
+      <span class="feature-icon">💰</span>
+      <h4>价格透明</h4>
+      <p>无隐藏费用，价格公开透明</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ───────────────────────────────────── -->
+
+<section class="section" id="contact">
+  <div class="contact-section">
+    <h2>📬 联系我们</h2>
+    <p>
+      如需定制报价或咨询更多详情，请通过以下方式联系我们。<br>
+      我们将在24小时内回复您的询价。
+    </p>
+    <div class="contact-methods">
+      <a href="mailto:info@eprint2.com" class="contact-btn primary">
+        📧 发送邮件
+      </a>
+      <a href="https://wa.me/34XXXXXXXXX" class="contact-btn" target="_blank">
+        💬 WhatsApp 咨询
+      </a>
+      <a href="#" class="contact-btn">
+        📱 微信: Eprint2_China
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────── -->
+
+<footer>
+  <p>© 2026 E-print 2 · 数码印刷 · All rights reserved</p>
+  <p style="margin-top:4px;font-size:11px;">Logo placeholder — 请替换为您的正式 Logo</p>
+</footer>
+
+<!-- ─── BG CANVAS ANIMATION ───────────────────────── -->
+
+<script>
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.size = Math.random() * 2 + 0.5;
+    this.speedX = (Math.random() - 0.5) * 0.3;
+    this.speedY = (Math.random() - 0.5) * 0.3;
+    this.opacity = Math.random() * 0.5 + 0.1;
+    this.hue = Math.random() * 60 + 280; // purple-pink range
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(${this.hue}, 80%, 60%, ${this.opacity})`;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+let mouseX = W / 2, mouseY = H / 2;
+document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+
+  // Gradient background with subtle movement
+  const grad = ctx.createRadialGradient(mouseX, mouseY, 0, W / 2, H / 2, Math.max(W, H) * 0.7);
+  grad.addColorStop(0, 'rgba(124, 77, 255, 0.03)');
+  grad.addColorStop(0.3, 'rgba(255, 45, 85, 0.02)');
+  grad.addColorStop(0.6, 'rgba(0, 229, 255, 0.015)');
+  grad.addColorStop(1, 'rgba(13, 13, 26, 0)');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Connecting lines
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 140) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `hsla(290, 60%, 60%, ${0.08 * (1 - dist / 140)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>
