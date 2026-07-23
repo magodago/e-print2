@@ -518,13 +518,17 @@ const COLORS = [
 
 class FogCloud {
   constructor() {
+    this.colorIdx = Math.floor(Math.random() * COLORS.length);
+    this.targetIdx = (this.colorIdx + 1 + Math.floor(Math.random() * (COLORS.length - 1))) % COLORS.length;
+    this.color = [...COLORS[this.colorIdx]];
+    this.transition = Math.random();
+    this.speed = Math.random() * 0.002 + 0.001;
     this.reset();
   }
   reset() {
     this.x = Math.random() * W;
     this.y = Math.random() * H;
     this.radius = 150 + Math.random() * 350;
-    this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
     this.opacity = Math.random() * 0.035 + 0.01;
     this.vx = (Math.random() - 0.5) * 0.15;
     this.vy = (Math.random() - 0.5) * 0.1;
@@ -536,7 +540,22 @@ class FogCloud {
     this.x += this.vx;
     this.y += this.vy;
     this.pulse += this.pulseSpeed;
-    // Wrap around edges smoothly
+    // Color transition
+    this.transition += this.speed;
+    if (this.transition >= 1) {
+      this.transition = 0;
+      this.colorIdx = this.targetIdx;
+      this.targetIdx = (this.targetIdx + 1 + Math.floor(Math.random() * 2)) % COLORS.length;
+    }
+    const t = this.transition;
+    const tc = COLORS[this.colorIdx];
+    const tt = COLORS[this.targetIdx];
+    this.color = [
+      tc[0] + (tt[0] - tc[0]) * t,
+      tc[1] + (tt[1] - tc[1]) * t,
+      tc[2] + (tt[2] - tc[2]) * t
+    ];
+    // Wrap around edges
     if (this.x < -this.radius) this.x = W + this.radius;
     if (this.x > W + this.radius) this.x = -this.radius;
     if (this.y < -this.radius) this.y = H + this.radius;
@@ -546,7 +565,7 @@ class FogCloud {
     const pulse = 1 + Math.sin(this.pulse) * this.pulseAmp;
     const r = this.radius * pulse;
     const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, r);
-    const [R, G, B] = this.color;
+    const [R, G, B] = this.color.map(Math.round);
     grad.addColorStop(0, `rgba(${R},${G},${B},${this.opacity * 1.5})`);
     grad.addColorStop(0.3, `rgba(${R},${G},${B},${this.opacity})`);
     grad.addColorStop(0.6, `rgba(${R},${G},${B},${this.opacity * 0.4})`);
