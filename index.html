@@ -34,6 +34,16 @@ body {
   overflow-x: hidden;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+}
+
+.fog-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
 /* ─── NAV ─────────────────────────────────────────── */
 
 nav {
@@ -86,7 +96,6 @@ nav {
   justify-content: center;
   text-align: center;
   padding: 140px 24px 80px;
-  background: linear-gradient(180deg, #ffffff 0%, #f8f6ff 50%, #f0f4ff 100%);
 }
 
 .hero-logo-wrap {
@@ -314,6 +323,8 @@ footer { text-align: center; padding: 36px 24px; border-top: 1px solid var(--bor
 </head>
 <body>
 
+<canvas class="fog-canvas" id="fogCanvas"></canvas>
+
 <!-- ─── NAV ───────────────────────────────────────── -->
 
 <nav>
@@ -381,10 +392,10 @@ footer { text-align: center; padding: 36px 24px; border-top: 1px solid var(--bor
       <div class="pricing-table">
         <div class="pricing-row recommended">
           <span class="qty">1,000 <span>份起</span><span class="badge">推荐</span></span>
-          <span class="price">60 €</span>
+          <span class="price">XX</span>
         </div>
-        <div class="pricing-row"><span class="qty">2,000 <span>份</span></span><span class="price">99 €</span></div>
-        <div class="pricing-row"><span class="qty">5,000 <span>份</span></span><span class="price">250 €</span></div>
+        <div class="pricing-row"><span class="qty">2,000 <span>份</span></span><span class="price">XX</span></div>
+        <div class="pricing-row"><span class="qty">5,000 <span>份</span></span><span class="price">XX</span></div>
         <div class="pricing-inquiry">咨询此产品</div>
       </div>
     </div>
@@ -407,10 +418,10 @@ footer { text-align: center; padding: 36px 24px; border-top: 1px solid var(--bor
       <div class="pricing-table">
         <div class="pricing-row recommended">
           <span class="qty">1,000 <span>本起</span><span class="badge">推荐</span></span>
-          <span class="price">60 €</span>
+          <span class="price">XX</span>
         </div>
-        <div class="pricing-row"><span class="qty">2,000 <span>本</span></span><span class="price">99 €</span></div>
-        <div class="pricing-row"><span class="qty">5,000 <span>本</span></span><span class="price">250 €</span></div>
+        <div class="pricing-row"><span class="qty">2,000 <span>本</span></span><span class="price">XX</span></div>
+        <div class="pricing-row"><span class="qty">5,000 <span>本</span></span><span class="price">XX</span></div>
         <div class="pricing-inquiry">咨询此产品</div>
       </div>
     </div>
@@ -480,6 +491,82 @@ footer { text-align: center; padding: 36px 24px; border-top: 1px solid var(--bor
 </section>
 
 <footer><p>&copy; 2026 E-print 2 · 数码印刷</p></footer>
+
+<script>
+const canvas = document.getElementById('fogCanvas');
+const ctx = canvas.getContext('2d');
+let W, H;
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+const COLORS = [
+  [230, 57, 70],    // red
+  [247, 127, 0],    // orange
+  [0, 180, 216],    // cyan
+  [114, 9, 183],    // purple
+  [6, 214, 160],    // green
+  [247, 37, 133],   // pink
+  [67, 97, 238]     // blue
+];
+
+// ─── Fog clouds ─────────────────────────────────────
+
+class FogCloud {
+  constructor() {
+    this.reset();
+  }
+  reset() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.radius = 150 + Math.random() * 350;
+    this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+    this.opacity = Math.random() * 0.035 + 0.01;
+    this.vx = (Math.random() - 0.5) * 0.15;
+    this.vy = (Math.random() - 0.5) * 0.1;
+    this.pulse = Math.random() * Math.PI * 2;
+    this.pulseSpeed = Math.random() * 0.002 + 0.001;
+    this.pulseAmp = Math.random() * 0.15 + 0.05;
+  }
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.pulse += this.pulseSpeed;
+    // Wrap around edges smoothly
+    if (this.x < -this.radius) this.x = W + this.radius;
+    if (this.x > W + this.radius) this.x = -this.radius;
+    if (this.y < -this.radius) this.y = H + this.radius;
+    if (this.y > H + this.radius) this.y = -this.radius;
+  }
+  draw() {
+    const pulse = 1 + Math.sin(this.pulse) * this.pulseAmp;
+    const r = this.radius * pulse;
+    const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, r);
+    const [R, G, B] = this.color;
+    grad.addColorStop(0, `rgba(${R},${G},${B},${this.opacity * 1.5})`);
+    grad.addColorStop(0.3, `rgba(${R},${G},${B},${this.opacity})`);
+    grad.addColorStop(0.6, `rgba(${R},${G},${B},${this.opacity * 0.4})`);
+    grad.addColorStop(1, `rgba(${R},${G},${B},0)`);
+    ctx.fillStyle = grad;
+    ctx.fillRect(this.x - r, this.y - r, r * 2, r * 2);
+  }
+}
+
+const clouds = [];
+for (let i = 0; i < 18; i++) clouds.push(new FogCloud());
+
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+  clouds.forEach(c => { c.update(); c.draw(); });
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
 
 </body>
 </html>
