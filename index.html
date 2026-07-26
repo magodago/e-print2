@@ -391,7 +391,7 @@ function openConfig(pid) {
   
   // Summary
   html += `<div class="conf-resumen" id="configSummary"></div>
-  <div class="conf-total" id="configTotal">${priceInfo.price.toFixed(2)} € <span class="iva">+ IVA</span>${mode==='demo' ? '<span class="demo-badge" style="margin-left:8px">DEMO</span>' : ''}</div>
+  <div class="conf-total" id="configTotal">${priceInfo.price.toFixed(2)} € <span class="iva">+ IVA</span></div>
   <div style="display:flex;gap:8px;margin-top:12px">
     <button class="btn btn-p" style="flex:1;justify-content:center" onclick="addConfigured()">AÑADIR AL CARRITO</button>
     <button class="btn btn-s" style="flex:1;justify-content:center" onclick="showSec('presupuesto')">SOLICITAR PRESUPUESTO</button>
