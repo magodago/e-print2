@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>E-print 2 · Diseño e Impresión · Una empresa de E2</title>
+<title>E-print 2</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -22,9 +22,9 @@ body{font-family:Inter,sans-serif;color:var(--text);background:var(--bg);line-he
 header{position:sticky;top:0;z-index:99;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
 .h-In{max-width:var(--mw);margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
 .logo{display:flex;align-items:center;gap:8px;text-decoration:none}
-.logo img{height:36px}
+.logo img{height:36px;width:auto}
 nav.d{display:flex;align-items:center;gap:4px}
-nav.d a{padding:8px 16px;text-decoration:none;color:var(--text);font-size:14px;font-weight:500;border-radius:var(--rs);transition:all .3s}
+nav.d a{padding:8px 16px;text-decoration:none;color:var(--text);font-size:14px;font-weight:500;border-radius:var(--rs);transition:all .3s;cursor:pointer}
 nav.d a:hover{background:var(--bg-a)}
 nav.d a.cta{background:var(--gradient-m);color:#fff;font-weight:600;padding:8px 20px}
 .h-icon{position:relative;cursor:pointer;padding:8px}
@@ -37,15 +37,31 @@ nav.d a.cta{background:var(--gradient-m);color:#fff;font-weight:600;padding:8px 
 .mm-i{background:#fff;width:85%;max-width:400px;height:100%;padding:24px;overflow-y:auto;margin-left:auto}
 .mm-i a{display:block;padding:14px 0;font-size:16px;font-weight:500;text-decoration:none;color:var(--text);border-bottom:1px solid var(--border)}
 @media(max-width:768px){nav.d{display:none}.ham{display:flex}}
-.hero{padding:80px 24px 60px;text-align:center;background:linear-gradient(180deg,#f0f5ff,#fff);position:relative;overflow:hidden}
-.hero-bg{position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 20% 50%,rgba(0,102,255,.04) 0%,transparent 50%),radial-gradient(circle at 80% 50%,rgba(124,58,237,.04) 0%,transparent 50%);pointer-events:none}
-.hero h1{font-size:clamp(36px,5vw,64px);font-weight:900;line-height:1.1;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:16px}
-.hero p{font-size:18px;color:var(--text-l);max-width:640px;margin:0 auto 32px}
-.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero{position:relative;min-height:80vh;align-items:center;display:flex;flex-direction:column;justify-content:center;text-align:center;background:var(--bg);padding:0 24px}
+.hero::before{content:'';position:absolute;top:0;left:0;width:100%;height:400px;background:linear-gradient(135deg,var(--c2),var(--c3),var(--c4),var(--c5));opacity:.1}
+.hero-content{position:relative;z-index:2;max-width:800px;margin:0 auto;padding:40px 24px;background:var(--bg);border-radius:var(--r);box-shadow:var(--shad-lg)}
+.hero h1{font-size:clamp(36px,6vw,72px);font-weight:900;line-height:1.1;margin-bottom:24px;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:clamp(16px,2.5vw,20px);color:var(--text-l);margin-bottom:32px;line-height:1.7}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:var(--rs);font-weight:600;font-size:15px;text-decoration:none;transition:all .3s;cursor:pointer;border:none}
 .btn-p{background:var(--gradient-m);color:#fff}.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,102,255,.3)}
 .btn-s{background:#fff;color:var(--text);border:1px solid var(--border)}.btn-s:hover{border-color:var(--c2);color:var(--c2);transform:translateY(-2px)}
 .btn-lg{padding:16px 40px;font-size:16px}.btn-sm{padding:10px 20px;font-size:13px}
+.services{padding:120px 24px;background:var(--bg-a)}
+.services h2{text-align:center;font-size:clamp(28px,4vw,40px);font-weight:800;margin-bottom:60px}
+.services .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px}
+.service-card{background:#fff;border-radius:var(--r);overflow:hidden;border:1px solid var(--border);transition:all .3s;box-shadow:var(--shadow)}
+.service-card:hover{transform:translateY(-8px);box-shadow:var(--shad-lg)}
+.service-icon{width:80px;height:80px;background:var(--gradient-m);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;border-radius:50%;color:#fff;font-size:40px}
+.service-card h3{font-size:20px;font-weight:700;margin-bottom:12px;text-align:center}
+.service-card p{font-size:14px;color:var(--text-l);text-align:center;margin-bottom:20px}
+.service-card a{text-align:center;display:inline-block;padding:10px 20px;background:var(--gradient-m);color:#fff;border-radius:var(--r);text-decoration:none;font-size:14px;font-weight:600}
+.features{padding:120px 24px;background:#fff}
+.features h2{text-align:center;font-size:clamp(28px,4vw,40px);font-weight:800;margin-bottom:60px}
+.features .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.feature-item{display:flex;gap:20px;align-items:flex-start}
+.feature-item h3{font-size:20px;font-weight:700;color:var(--text);margin-bottom:8px}
+.feature-item p{font-size:14px;color:var(--text-l);line-height:1.6}
 .sec{padding:72px 24px}
 .si{max-width:var(--mw);margin:0 auto}
 .st{font-size:clamp(28px,3.5vw,40px);font-weight:800;text-align:center;margin-bottom:8px}
@@ -76,13 +92,11 @@ nav.d a.cta{background:var(--gradient-m);color:#fff;font-weight:600;padding:8px 
 .cart-f{padding:20px;border-top:1px solid var(--border)}
 .cart-f .ct{display:flex;justify-content:space-between;font-size:18px;font-weight:700;margin-bottom:12px}
 .cart-f .ct span{color:var(--c2)}
-.wa{position:fixed;bottom:24px;right:24px;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:90;box-shadow:0 8px 25px rgba(0,0,0,.2)}
-.wa svg{width:28px;height:28px;fill:#fff}
 .demo-bar{background:#ff6b35;color:#fff;text-align:center;padding:8px;font-size:13px;font-weight:500;display:none}
 .conf-layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:20px}
 @media(max-width:768px){.conf-layout{grid-template-columns:1fr!important}}
 .conf{background:#fff;border-radius:var(--r);padding:32px;box-shadow:var(--shadow);margin-bottom:40px}
-.conf h2{font-size:24px;font-weight:800;margin-bottom:4px}
+.conf h2{font-size:24px;font-weight:800;margin-bottom:8px}
 .conf-total{font-size:26px;font-weight:800;text-align:right;padding:16px 0;border-top:2px solid var(--border);margin-top:8px}
 .conf-total span{color:var(--c2)}
 .conf-total .iva{font-size:14px;font-weight:400;color:var(--text-l)}
@@ -98,24 +112,23 @@ nav.d a.cta{background:var(--gradient-m);color:#fff;font-weight:600;padding:8px 
 footer{background:var(--e2-bg);color:#fff;padding:60px 24px 24px}
 .fi{max-width:var(--mw);margin:0 auto}
 .fi .ft-e2{font-size:24px;font-weight:800}
-.fi h4{color:rgba(255,255,255,.7);font-size:14px;margin-top:20px;margin-bottom:8px}
+.fi h4{color:rgba(255,255,255,.5);font-size:14px;margin-top:20px;margin-bottom:8px}
 .fi a{color:rgba(255,255,255,.5);text-decoration:none;font-size:14px;display:block;padding:6px 0}
 .fi a:hover{color:#fff}
 .fb{text-align:center;color:rgba(255,255,255,.3);font-size:12px;margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1)}
 @media(max-width:768px){.sec{padding:48px 16px}.conf{padding:20px}}
-
+@media(max-width:480px){.hero-btns{flex-direction:column;gap:12px}.hero p{font-size:16px}}
 </style>
 </head>
 <body>
-<div class="e2-top"><a href="/">E2</a><span class="sp">|</span><strong>E-print 2</strong><span class="sp">|</span><a href="#">E-Tech 2</a><span style="opacity:.4;margin-left:12px">— Una empresa de E2</span></div>
-<div id="demoBar" class="demo-bar" style="display:none">⚡ MODO DEMO — Los precios mostrados son simulados. Solicita presupuesto para precio real.</div>
+<div class="e2-top"><a href="/">E2</a><span class="sp">|</span><strong>E-print 2</strong><span class="sp">|</span><a href="#">E-Tech 2</a><span style="opacity:.4;margin-left:12px">— Diseño e Impresión Profesional</span></div>
 
 <header>
 <div class="h-In">
 <a href="#" class="logo" onclick="showSec('home')"><img src="logo_eprint2.png" alt="E-print 2"></a>
 <nav class="d">
 <a href="#" onclick="showSec('home')">Inicio</a>
-<a href="#" onclick="showSec('tienda')">Productos</a>
+<a href="#" onclick="showSec('tienda')">Servicios</a>
 <a href="#" onclick="showSec('presupuesto')">Presupuestos</a>
 <a href="#" onclick="showSec('contacto')">Contacto</a>
 <a href="#" class="cta" onclick="toggleCart()">Carrito (<span id="cartCount">0</span>)</a>
@@ -126,19 +139,93 @@ footer{background:var(--e2-bg);color:#fff;padding:60px 24px 24px}
 
 <div id="app"></div>
 
+<!-- Premium Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <h1 style="font-size:clamp(28px,4vw,36px);font-weight:800;margin-bottom:16px;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Diseño e Impresión Profesional</h1>
+    <p style="font-size:clamp(16px,2vw,18px);color:var(--text-l);max-width:640px;margin:0 auto 32px;line-height:1.6">Calidad premium, atención personalizada. Tarjetas, flyers, menús y más a tu medida.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn btn-p btn-lg" onclick="showSec('tienda')">Ver Servicios</a>
+      <a href="#" class="btn btn-s btn-lg" onclick="showSec('presupuesto')">Solicitar Presupuesto</a>
+    </div>
+  </div>
+  <!-- Premium Image Gallery -->
+  <div style="margin-top:40px">
+    <img src="assets/hero-gallery.png" alt="Trabajos premium E-print 2" style="max-width:100%;border-radius:var(--r);box-shadow:var(--shad-lg);max-height:400px;object-fit:cover">
+  </div>
+</section>
+
+<!-- Services Section -->
+<section class="services">
+  <div class="si">
+    <h2>Nuestros <span>Servicios</span></h2>
+    <p style="text-align:center;color:var(--text-l);max-width:640px;margin:0 auto">Diseños personalizados con materiales premium y acabados especiales</p>
+    <div class="grid">
+      <div class="service-card">
+        <div class="service-icon">🖇️</div>
+        <h3>Tarjetas de Visita</h3>
+        <p>Formato profesional para tu negocio</p>
+        <a href="#" onclick="showSec('tienda')">Ver Productos</a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📄</div>
+        <h3>Flyers</h3>
+        <p>Promoción atractiva y memorable</p>
+        <a href="#" onclick="showSec('tienda')">Ver Productos</a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📋</div>
+        <h3>Menús</h3>
+        <p>Diseño gastronómico premium</p>
+        <a href="#" onclick="showSec('tienda')">Ver Productos</a>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🪧</div>
+        <h3>Carteles</h3>
+        <p>Comunicación visual impactante</p>
+        <a href="#" onclick="showSec('tienda')">Ver Productos</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+  <div class="si">
+    <h2>¿Por qué elegir E-print 2?</h2>
+    <div class="grid">
+      <div class="feature-item">
+        <h3>Calidad Premium</h3>
+        <p>Impresión a 4 plazas de color con tinta pigmentada resistente al tiempo</p>
+      </div>
+      <div class="feature-item">
+        <h3>Acabados Especiales</h3>
+        <p>Mate, brillo, UV, foil, troquelado y más opciones para destacar</p>
+      </div>
+      <div class="feature-item">
+        <h3>Diseño Personalizado</h3>
+        <p>Trabajamos contigo desde el primer boceto hasta el producto final</p>
+      </div>
+      <div class="feature-item">
+        <h3>Entrega Rápida</h3>
+        <p>En 24-48h tienes tus productos en mano, sin sorpresas</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
 <div class="fi">
 <div class="ft-e2">E-print 2</div>
-<p style="color:rgba(255,255,255,.5);font-size:14px;margin-top:8px">Diseño e Impresión · Una empresa de E2</p>
-<div style="margin-top:40px"><img src="assets/tarjetas_visita.png" alt="Tarjetas de visita profesionales" style="max-width:100%;border-radius:var(--r);box-shadow:var(--shad-lg);max-height:400px;object-fit:cover"></div>
-<div style="display:flex;gap:40px;margin-top:20px;flex-wrap:wrap">
-<div>
-<h4>Productos</h4>
+<p style="color:rgba(255,255,255,.5);font-size:14px;margin-top:8px">Diseño e Impresión Profesional · Calidad Premium</p>
+<div style="margin-top:40px">
+<h4 style="color:rgba(255,255,255,.7);font-size:14px;margin-bottom:8px">Servicios</h4>
 <a href="#" onclick="showSec('tienda')">Tarjetas de Visita</a>
 <a href="#" onclick="showSec('tienda')">Flyers</a>
 <a href="#" onclick="showSec('tienda')">Menús</a>
 <a href="#" onclick="showSec('tienda')">Carteles</a>
 </div>
+<div style="display:flex;gap:40px;margin-top:20px;flex-wrap:wrap">
 <div>
 <h4>Empresa</h4>
 <a href="#" onclick="showSec('contacto')">Contacto</a>
@@ -146,13 +233,15 @@ footer{background:var(--e2-bg);color:#fff;padding:60px 24px 24px}
 </div>
 <div>
 <h4>Contacto</h4>
-<a href="tel:+34695602625">+34 695 60 26 25</a>
+<a href="tel:+346****2625">+34 695 60 26 25</a>
 <a href="mailto:david@neolabs.me">david@neolabs.me</a>
 </div>
 </div>
 <div class="fb">© 2026 E-print 2 · E2 Ecosystem · Todos los derechos reservados</div>
 </div>
 </footer>
+
+<div class="wa"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1a2 2 0 00-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2h5a2 2 0 012 2v1m4 0h1a2 2 0 012 2v11a2 2 0 01-2 2H8a2 2 0 01-2-2V9a2 2 0 012-2h5.5" /></svg></div>
 
 <script src="app.js"></script>
 </body>
