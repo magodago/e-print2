@@ -1,591 +1,948 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>E-print 2 · 数码印刷</title>
+<title>E-print 2 · Diseño e Impresión · Una empresa de E2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Inter:wght@300;400;600;700;900&display=swap');
-
 :root {
-  --c1: #e63946;
-  --c2: #f77f00;
-  --c3: #fcbf49;
-  --c4: #00b4d8;
-  --c5: #7209b7;
-  --c6: #06d6a0;
+  --e2-bg: #0a0a0f;
+  --c1: #0a2540;
+  --c2: #0066ff;
+  --c3: #00d4ff;
+  --c4: #7c3aed;
+  --c5: #ec4899;
+  --c6: #f43f5e;
+  --c7: #f97316;
+  --c8: #eab308;
+  --gradient: linear-gradient(135deg, var(--c2), var(--c3), var(--c4), var(--c5), var(--c6), var(--c7), var(--c8));
+  --gradient-main: linear-gradient(135deg, var(--c2), var(--c3));
+  --gradient-accent: linear-gradient(135deg, var(--c4), var(--c5), var(--c6));
   --text: #1a1a2e;
-  --text-muted: #8888a0;
+  --text-light: #6b7280;
   --bg: #ffffff;
-  --card-bg: #ffffff;
-  --border: rgba(0,0,0,0.06);
-  --border-hover: rgba(0,0,0,0.14);
-  --shadow: 0 2px 20px rgba(0,0,0,0.04);
-  --shadow-hover: 0 8px 40px rgba(0,0,0,0.08);
+  --bg-alt: #f8fafc;
+  --card: #ffffff;
+  --border: rgba(0,0,0,0.08);
+  --radius: 16px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 40px rgba(0,0,0,0.08);
+  --max-w: 1280px;
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
 
-body {
-  font-family: 'Noto Sans SC', 'Inter', -apple-system, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  overflow-x: hidden;
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
+/* ─── E2 TOP BAR ─── */
+.e2-topbar {
+  background: var(--e2-bg); color: #fff; padding: 8px 0; text-align: center;
+  font-size: 12px; letter-spacing: 1px; position: relative; z-index: 100;
 }
+.e2-topbar a { color: #fff; text-decoration: none; opacity: 0.7; transition: opacity .3s; }
+.e2-topbar a:hover { opacity: 1; }
+.e2-topbar .sep { color: #333; margin: 0 12px; }
 
-.fog-canvas {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* ─── NAV ─────────────────────────────────────────── */
-
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 14px 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(20px);
+/* ─── HEADER ─── */
+header {
+  position: sticky; top: 0; z-index: 99;
+  background: rgba(255,255,255,0.92); backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
 }
-
-.nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-.nav-brand img { height: 32px; width: auto; border-radius: 3px; }
-.nav-brand-text { font-weight: 700; font-size: 15px; color: var(--text); letter-spacing: 0.5px; }
-.nav-brand-sub { font-size: 10px; color: var(--text-muted); letter-spacing: 2px; }
-
-.nav-links { display: flex; gap: 32px; list-style: none; }
-.nav-links a {
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 500;
-  transition: color 0.3s;
-  position: relative;
+.header-inner {
+  max-width: var(--max-w); margin: 0 auto; padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between;
 }
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -5px; left: 0;
-  width: 0; height: 1.5px;
-  background: var(--c4);
-  transition: width 0.3s;
+.logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.logo img { height: 40px; }
+.logo-text { font-size: 20px; font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.logo-sub { font-size: 10px; color: var(--text-light); letter-spacing: 2px; text-transform: uppercase; margin-top: -2px; }
+nav.desktop { display: flex; align-items: center; gap: 4px; }
+nav.desktop a {
+  padding: 8px 16px; text-decoration: none; color: var(--text); font-size: 14px; font-weight: 500;
+  border-radius: var(--radius-sm); transition: all .3s;
 }
-.nav-links a:hover { color: var(--text); }
-.nav-links a:hover::after { width: 100%; }
+nav.desktop a:hover { background: var(--bg-alt); }
+nav.desktop a.cta {
+  background: var(--gradient-main); color: #fff; font-weight: 600; padding: 8px 20px;
+}
+nav.desktop a.cta:hover { opacity: 0.9; }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+.hamburger span { width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: .3s; }
+.cart-icon { position: relative; cursor: pointer; padding: 8px; }
+.cart-icon svg { width: 22px; height: 22px; color: var(--text); }
+.cart-count {
+  position: absolute; top: 0; right: 0; background: var(--c6); color: #fff;
+  font-size: 10px; font-weight: 700; width: 18px; height: 18px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+}
 
-/* ─── HERO ────────────────────────────────────────── */
+/* ─── MOBILE MENU ─── */
+.mobile-menu {
+  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5); z-index: 200; backdrop-filter: blur(8px);
+}
+.mobile-menu.open { display: block; }
+.mobile-menu-inner {
+  background: #fff; width: 85%; max-width: 400px; height: 100%; padding: 24px;
+  overflow-y: auto; margin-left: auto;
+}
+.mobile-menu-inner a { display: block; padding: 14px 0; font-size: 16px; font-weight: 500; text-decoration: none; color: var(--text); border-bottom: 1px solid var(--border); }
+.mobile-menu-close { float: right; background: none; border: none; font-size: 28px; cursor: pointer; color: var(--text); }
 
+/* ─── HERO ─── */
 .hero {
-  position: relative;
-  z-index: 1;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 140px 24px 80px;
+  padding: 80px 24px 60px; text-align: center;
+  background: linear-gradient(180deg, #f0f5ff 0%, #fff 100%);
+  position: relative; overflow: hidden;
 }
-
-.hero-logo-wrap {
-  margin-bottom: 40px;
-  animation: float 4s ease-in-out infinite;
-  filter: drop-shadow(0 8px 40px rgba(0,0,0,0.06));
+.hero-bg {
+  position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+  background: radial-gradient(circle at 20% 50%, rgba(0,102,255,0.04) 0%, transparent 50%),
+              radial-gradient(circle at 80% 50%, rgba(124,58,237,0.04) 0%, transparent 50%),
+              radial-gradient(circle at 50% 20%, rgba(0,212,255,0.06) 0%, transparent 40%);
+  pointer-events: none;
 }
-
-.hero-logo-wrap img {
-  max-width: 300px;
-  height: auto;
-  border-radius: 8px;
-  display: block;
+.hero h1 {
+  font-size: clamp(36px,5vw,64px); font-weight: 900; line-height: 1.1;
+  background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 16px; position: relative;
 }
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+.hero p {
+  font-size: 18px; color: var(--text-light); max-width: 640px; margin: 0 auto 32px; position: relative;
 }
-
-.banner-wrap {
-  margin-bottom: 36px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  animation: fadeUp 1s ease 0.15s both;
+.hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px;
+  border-radius: var(--radius-sm); font-weight: 600; font-size: 15px;
+  text-decoration: none; transition: all .3s; cursor: pointer; border: none;
 }
+.btn-primary { background: var(--gradient-main); color: #fff; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,102,255,0.3); }
+.btn-secondary { background: #fff; color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { border-color: var(--c2); color: var(--c2); transform: translateY(-2px); }
+.btn-accent { background: var(--gradient-accent); color: #fff; }
+.btn-accent:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(236,72,153,0.3); }
+.btn-lg { padding: 16px 40px; font-size: 16px; }
 
-.banner-text {
-  font-size: clamp(16px, 2.5vw, 28px);
-  font-weight: 700;
-  letter-spacing: 4px;
-  white-space: nowrap;
-  background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c5), var(--c6), var(--c1));
-  background-size: 400% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: bannerFlow 5s linear infinite;
-  display: inline-block;
+/* ─── SECTIONS ─── */
+.section { padding: 72px 24px; }
+.section-inner { max-width: var(--max-w); margin: 0 auto; }
+.section-title {
+  font-size: clamp(28px,3.5vw,40px); font-weight: 800; text-align: center; margin-bottom: 8px;
 }
+.section-title span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.section-sub { text-align: center; color: var(--text-light); font-size: 16px; max-width: 600px; margin: 0 auto 48px; }
 
-@keyframes bannerFlow {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 400% 50%; }
+/* ─── CATEGORIES ─── */
+.categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 16px; }
+.cat-card {
+  padding: 32px 20px; text-align: center; border-radius: var(--radius);
+  background: var(--card); border: 1px solid var(--border); text-decoration: none;
+  transition: all .3s; cursor: pointer;
 }
+.cat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: transparent; }
+.cat-card .icon { font-size: 36px; margin-bottom: 12px; }
+.cat-card h3 { font-size: 15px; font-weight: 700; color: var(--text); }
+.cat-card p { font-size: 12px; color: var(--text-light); margin-top: 4px; }
 
-.hero-sub {
-  font-size: clamp(14px, 1.5vw, 16px);
-  color: var(--text-muted);
-  max-width: 460px;
-  margin-bottom: 36px;
-  font-weight: 400;
-  animation: fadeUp 1s ease 0.3s both;
-}
-
-.hero-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 13px 34px;
-  border: 1px solid var(--c4);
-  background: transparent;
-  color: var(--c4);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  font-family: inherit;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.3s;
-  animation: fadeUp 1s ease 0.4s both;
-}
-.hero-cta:hover { background: rgba(0,180,216,0.06); transform: translateY(-2px); }
-
-.hero-stats {
-  display: flex;
-  gap: 48px;
-  margin-top: 56px;
-  animation: fadeUp 1s ease 0.5s both;
-}
-.hero-stat { text-align: center; }
-.hero-stat-number { font-size: 26px; font-weight: 900; color: var(--c4); }
-.hero-stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; letter-spacing: 1px; }
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ─── SECTION ─────────────────────────────────────── */
-
-.section {
-  position: relative;
-  z-index: 1;
-  padding: 100px 24px;
-  max-width: 1120px;
-  margin: 0 auto;
-}
-
-.section-label { font-size: 11px; font-weight: 600; letter-spacing: 4px; color: var(--c4); margin-bottom: 14px; }
-.section-title { font-size: clamp(26px, 4vw, 40px); font-weight: 900; margin-bottom: 14px; color: var(--text); }
-.section-desc { font-size: 15px; color: var(--text-muted); max-width: 540px; margin-bottom: 52px; line-height: 1.8; }
-
-/* ─── PRODUCTS ────────────────────────────────────── */
-
-.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
-
+/* ─── PRODUCTS ─── */
+.products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 20px; }
 .product-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  padding: 44px 36px 36px;
-  box-shadow: var(--shadow);
-  transition: box-shadow 0.4s, border-color 0.4s, transform 0.4s;
+  background: var(--card); border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--border); transition: all .3s;
 }
-.product-card:hover {
-  box-shadow: var(--shadow-hover);
-  border-color: var(--border-hover);
-  transform: translateY(-4px);
+.product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.product-card-img {
+  height: 180px; background: var(--bg-alt); display: flex; align-items: center; justify-content: center;
+  font-size: 48px; position: relative;
+}
+.prod-badge {
+  position: absolute; top: 12px; left: 12px; padding: 4px 12px; border-radius: 20px;
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.badge-hot { background: var(--c6); color: #fff; }
+.badge-save { background: var(--c7); color: #fff; }
+.product-card-body { padding: 20px; }
+.product-card-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.product-card-body .desc { font-size: 13px; color: var(--text-light); margin-bottom: 12px; }
+.product-card-body .price { font-size: 20px; font-weight: 800; color: var(--c2); }
+.product-card-body .price small { font-size: 13px; font-weight: 400; color: var(--text-light); }
+.product-card-body .old-price { font-size: 14px; color: var(--text-light); text-decoration: line-through; }
+.prod-actions { display: flex; gap: 8px; margin-top: 12px; }
+.prod-actions .btn { flex: 1; justify-content: center; padding: 10px; font-size: 13px; }
+
+/* ─── CONFIGURATOR ─── */
+.configurator-overlay {
+  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5); z-index: 300; backdrop-filter: blur(4px);
+  overflow-y: auto; padding: 20px;
+}
+.configurator-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+.configurator {
+  background: #fff; border-radius: var(--radius); max-width: 700px; width: 100%;
+  padding: 32px; position: relative; margin: auto;
+}
+.config-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 28px; cursor: pointer; color: var(--text-light); }
+.configurator h2 { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+.configurator .base-price { color: var(--c2); font-size: 28px; font-weight: 800; margin-bottom: 20px; }
+.config-group { margin-bottom: 16px; }
+.config-group label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+.config-group select, .config-group input { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; }
+.config-group select:focus, .config-group input:focus { outline: none; border-color: var(--c2); }
+.config-total { font-size: 24px; font-weight: 800; text-align: right; padding: 16px 0; border-top: 1px solid var(--border); margin-top: 8px; }
+.config-total span { color: var(--c2); }
+
+/* ─── PACKS ─── */
+.packs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 24px; }
+.pack-card {
+  background: var(--card); border-radius: var(--radius); padding: 32px;
+  border: 1px solid var(--border); position: relative; transition: all .3s;
+}
+.pack-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.pack-card.featured { border-color: var(--c2); box-shadow: 0 0 0 1px var(--c2); }
+.pack-card .badge { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); padding: 4px 16px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; white-space: nowrap; }
+.pack-card h3 { font-size: 20px; font-weight: 800; margin-bottom: 12px; }
+.pack-card ul { list-style: none; margin-bottom: 20px; }
+.pack-card ul li { padding: 6px 0; font-size: 14px; color: var(--text); display: flex; align-items: center; gap: 8px; }
+.pack-card ul li:before { content: '✓'; color: var(--c2); font-weight: 700; }
+.pack-price { font-size: 32px; font-weight: 900; color: var(--c2); margin-bottom: 4px; }
+.pack-old-price { font-size: 18px; color: var(--text-light); text-decoration: line-through; }
+.pack-save { font-size: 13px; color: var(--c7); font-weight: 700; margin-bottom: 16px; }
+
+/* ─── FOOTER ─── */
+footer { background: var(--e2-bg); color: #fff; padding: 48px 24px 24px; }
+.footer-inner { max-width: var(--max-w); margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 40px; }
+footer h4 { font-size: 14px; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; }
+footer a { display: block; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; padding: 4px 0; transition: all .3s; }
+footer a:hover { color: #fff; }
+.footer-e2 { font-size: 24px; font-weight: 900; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.footer-bottom { text-align: center; padding-top: 32px; margin-top: 32px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 13px; color: rgba(255,255,255,0.4); }
+
+/* ─── WHATSAPP ─── */
+.whatsapp-float {
+  position: fixed; bottom: 24px; right: 24px; z-index: 50;
+  width: 56px; height: 56px; border-radius: 50%; background: #25D366;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 28px; text-decoration: none;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.4); transition: all .3s;
+}
+.whatsapp-float:hover { transform: scale(1.1); }
+.whatsapp-tooltip {
+  position: fixed; bottom: 90px; right: 24px; z-index: 49;
+  background: #fff; border-radius: var(--radius-sm); padding: 12px 16px;
+  box-shadow: var(--shadow-lg); font-size: 13px; color: var(--text); display: none;
 }
 
-.product-icon-wrap { width: 48px; height: 48px; margin-bottom: 20px; }
-.product-icon-wrap svg { width: 48px; height: 48px; }
-.product-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--text); }
-.product-card p { font-size: 13px; color: var(--text-muted); margin-bottom: 28px; line-height: 1.8; }
+/* ─── RESTAURANT SECTION ─── */
+.restaurant-hero { background: linear-gradient(135deg, #1a0a2e, #2d1b69); color: #fff; padding: 80px 24px; text-align: center; }
+.restaurant-hero h2 { font-size: clamp(32px,4vw,52px); font-weight: 900; margin-bottom: 12px; }
+.restaurant-hero p { font-size: 18px; opacity: 0.8; max-width: 600px; margin: 0 auto 24px; }
 
-.pricing-table { display: flex; flex-direction: column; gap: 8px; }
-
-.pricing-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 13px 18px;
-  background: rgba(0,0,0,0.02);
-  border: 1px solid rgba(0,0,0,0.04);
-  transition: background 0.3s;
+/* ─── FORM ─── */
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+  font-size: 14px; font-family: inherit; transition: border .3s;
 }
-.pricing-row:hover { background: rgba(0,0,0,0.03); }
-.pricing-row .qty { font-weight: 500; font-size: 14px; color: var(--text); }
-.pricing-row .qty span { font-size: 11px; color: var(--text-muted); font-weight: 400; }
-.pricing-row .price { font-weight: 900; font-size: 18px; color: var(--c2); }
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--c2); }
+.form-group textarea { min-height: 100px; resize: vertical; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-file { padding: 40px; border: 2px dashed var(--border); border-radius: var(--radius-sm); text-align: center; cursor: pointer; transition: all .3s; }
+.form-file:hover { border-color: var(--c2); background: rgba(0,102,255,0.02); }
 
-.pricing-row.recommended {
-  background: rgba(247,127,0,0.04);
-  border-color: rgba(247,127,0,0.12);
+/* ─── CART SIDEBAR ─── */
+.cart-sidebar {
+  position: fixed; top: 0; right: -400px; width: 380px; height: 100%;
+  background: #fff; z-index: 300; box-shadow: -4px 0 40px rgba(0,0,0,0.1);
+  transition: right .4s cubic-bezier(0.22,1,0.36,1);
+  display: flex; flex-direction: column;
 }
-.pricing-row.recommended .badge {
-  font-size: 9px; font-weight: 700; letter-spacing: 2px;
-  padding: 2px 10px; background: var(--c2); color: #fff;
-  margin-left: 10px; border-radius: 2px;
-}
+.cart-sidebar.open { right: 0; }
+.cart-header { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.cart-header h3 { font-size: 18px; font-weight: 700; }
+.cart-close { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-light); }
+.cart-items { flex: 1; overflow-y: auto; padding: 16px 24px; }
+.cart-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.cart-item-img { width: 50px; height: 50px; background: var(--bg-alt); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.cart-item-info { flex: 1; }
+.cart-item-info h4 { font-size: 14px; font-weight: 600; }
+.cart-item-info p { font-size: 12px; color: var(--text-light); }
+.cart-item-price { font-weight: 700; color: var(--c2); }
+.cart-item-remove { color: var(--text-light); cursor: pointer; font-size: 18px; }
+.cart-footer { padding: 20px 24px; border-top: 1px solid var(--border); }
+.cart-total { display: flex; justify-content: space-between; font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+.cart-total span:last-child { color: var(--c2); }
 
-.pricing-inquiry {
-  margin-top: 14px; padding: 11px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text-muted);
-  font-size: 12px; letter-spacing: 1px;
-  font-family: inherit; cursor: pointer;
-  transition: all 0.3s; width: 100%; text-align: center;
-}
-.pricing-inquiry:hover { border-color: var(--c4); color: var(--c4); }
+/* ─── ORDER STATUS ─── */
+.order-timeline { display: flex; gap: 8px; flex-wrap: wrap; margin: 20px 0; }
+.order-step { flex: 1; min-width: 100px; text-align: center; padding: 12px 8px; border-radius: var(--radius-sm); background: var(--bg-alt); font-size: 12px; font-weight: 500; position: relative; }
+.order-step.active { background: var(--gradient-main); color: #fff; }
+.order-step.done { background: #d1fae5; color: #065f46; }
 
-/* ─── FEATURES ────────────────────────────────────── */
+/* ─── ADMIN ─── */
+.admin-section { display: none; }
+.admin-section.open { display: block; }
 
-.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-
-.feature-item {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  padding: 28px 24px;
-  box-shadow: var(--shadow);
-  transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
-}
-.feature-item:hover { box-shadow: var(--shadow-hover); border-color: var(--border-hover); transform: translateY(-2px); }
-
-.feature-icon-wrap { width: 36px; height: 36px; margin-bottom: 14px; }
-.feature-icon-wrap svg { width: 36px; height: 36px; }
-.feature-item h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
-.feature-item p { font-size: 12px; color: var(--text-muted); line-height: 1.7; }
-
-/* ─── CONTACT ─────────────────────────────────────── */
-
-.contact-wrap {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  padding: 56px 44px;
-  text-align: center;
-  box-shadow: var(--shadow);
-}
-.contact-wrap h2 { font-size: 28px; font-weight: 900; margin-bottom: 10px; color: var(--text); }
-.contact-wrap p { color: var(--text-muted); font-size: 14px; margin-bottom: 32px; max-width: 460px; margin: 0 auto 32px; }
-
-.contact-methods { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
-
-.contact-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 13px 26px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text);
-  text-decoration: none;
-  font-size: 13px; font-family: inherit;
-  transition: all 0.3s; cursor: pointer;
-}
-.contact-btn:hover { border-color: var(--c4); box-shadow: var(--shadow-hover); transform: translateY(-1px); }
-.contact-btn.primary { border-color: var(--c4); color: var(--c4); }
-.contact-btn.primary:hover { background: rgba(0,180,216,0.06); }
-
-footer { text-align: center; padding: 36px 24px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-muted); }
-
-@media (max-width: 768px) {
-  nav { padding: 14px 20px; }
-  .nav-links { display: none; }
-  .hero-logo-wrap img { max-width: 220px; }
-  .hero-stats { flex-wrap: wrap; gap: 24px; justify-content: center; }
+/* ─── RESPONSIVE ─── */
+@media(max-width:768px) {
+  nav.desktop { display: none; }
+  .hamburger { display: flex; }
+  .hero { padding: 60px 20px 40px; }
+  .categories-grid { grid-template-columns: repeat(2,1fr); }
   .products-grid { grid-template-columns: 1fr; }
-  .contact-wrap { padding: 40px 24px; }
-  .contact-methods { flex-direction: column; align-items: stretch; }
-  .contact-btn { justify-content: center; }
+  .packs-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .cart-sidebar { width: 100%; right: -100%; }
+  .section { padding: 48px 16px; }
+  .configurator { padding: 24px 16px; margin: 10px; }
 }
 </style>
 </head>
 <body>
 
-<canvas class="fog-canvas" id="fogCanvas"></canvas>
+<!-- ─── E2 TOP BAR ─── -->
+<div class="e2-topbar">
+  <a href="/">E2</a>
+  <span class="sep">|</span>
+  <strong>E-print 2</strong>
+  <span class="sep">|</span>
+  <a href="#">E-Tech 2</a>
+  <span style="opacity:0.4;margin-left:12px;">— Una empresa de E2</span>
+</div>
 
-<!-- ─── NAV ───────────────────────────────────────── -->
-
-<nav>
-  <a href="#" class="nav-brand">
-    <img src="logo.png" alt="E-print 2">
-    <span class="nav-brand-text">E-print 2</span>
-    <span class="nav-brand-sub">数码印刷</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#products">产品</a></li>
-    <li><a href="#features">优势</a></li>
-    <li><a href="#contact">联系我们</a></li>
-  </ul>
-</nav>
-
-<!-- ─── HERO ──────────────────────────────────────── -->
-
-<section class="hero">
-  <div class="hero-logo-wrap">
-    <img src="logo.png" alt="E-print 2">
+<!-- ─── HEADER ─── -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo" onclick="showSection('home')">
+      <div class="logo-text">E<span style="font-weight:300">-</span>print 2</div>
+      <div class="logo-sub">DISEÑO E IMPRESIÓN</div>
+    </a>
+    <nav class="desktop">
+      <a href="#" onclick="showSection('home')">Inicio</a>
+      <a href="#" onclick="showSection('tienda')">Tienda</a>
+      <a href="#" onclick="showSection('restaurantes')">Restaurantes</a>
+      <a href="#" onclick="showSection('presupuesto')">Presupuesto</a>
+      <a href="#" onclick="showSection('contacto')">Contacto</a>
+      <a href="#" class="cta" onclick="showSection('diseno')">Solicitar Diseño</a>
+      <div class="cart-icon" onclick="toggleCart()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </div>
+    </nav>
+    <button class="hamburger" onclick="toggleMobile()">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+</header>
 
-  <div class="banner-wrap">
-    <span class="banner-text">欢迎光临您值得信赖的商店</span>
+<!-- ─── MOBILE MENU ─── -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-inner">
+    <button class="mobile-menu-close" onclick="toggleMobile()">&times;</button>
+    <a href="#" onclick="showSection('home');toggleMobile()">Inicio</a>
+    <a href="#" onclick="showSection('tienda');toggleMobile()">Tienda</a>
+    <a href="#" onclick="showSection('restaurantes');toggleMobile()">Restaurantes</a>
+    <a href="#" onclick="showSection('presupuesto');toggleMobile()">Presupuesto</a>
+    <a href="#" onclick="showSection('diseno');toggleMobile()">Diseño</a>
+    <a href="#" onclick="showSection('contacto');toggleMobile()">Contacto</a>
+    <a href="#" onclick="showSection('empresas');toggleMobile()">Empresas</a>
+    <a href="#" onclick="showSection('packs');toggleMobile()">Packs</a>
+    <a href="#" onclick="showSection('publicidad');toggleMobile()">Publicidad</a>
+    <a href="#" onclick="showSection('admin');toggleMobile()">Admin</a>
   </div>
+</div>
 
-  <p class="hero-sub">
-    专业数码印刷 · 菜单 · 产品目录 · 宣传物料<br>
-    欧洲品质 · 服务中国企业
-  </p>
-
-  <a href="#products" class="hero-cta">
-    查看产品与报价
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-  </a>
-
-  <div class="hero-stats">
-    <div class="hero-stat"><div class="hero-stat-number">1000+</div><div class="hero-stat-label">合作企业</div></div>
-    <div class="hero-stat"><div class="hero-stat-number">48h</div><div class="hero-stat-label">快速交货</div></div>
-    <div class="hero-stat"><div class="hero-stat-number">98%</div><div class="hero-stat-label">客户满意度</div></div>
+<!-- ─── HOME ─── -->
+<section class="hero" id="sec-home">
+  <div class="hero-bg"></div>
+  <h1>TU NEGOCIO.<br>TU IMAGEN.<br>TU IMPRESIÓN.</h1>
+  <p>Diseñamos e imprimimos todo lo que tu negocio necesita para destacar. Desde tarjetas hasta la imagen completa de tu restaurante o empresa.</p>
+  <div class="hero-btns">
+    <a href="#" class="btn btn-primary btn-lg" onclick="showSection('tienda')">VER TIENDA</a>
+    <a href="#" class="btn btn-secondary btn-lg" onclick="showSection('presupuesto')">QUIERO UN PRESUPUESTO</a>
+  </div>
+  <div style="margin-top:48px; padding:32px; background: rgba(255,255,255,0.6); border-radius: var(--radius); max-width: 600px; margin-left:auto; margin-right:auto;">
+    <p style="font-size:15px; font-weight:600; margin-bottom:8px;">¿No sabes exactamente qué necesitas?</p>
+    <p style="font-size:14px; color:var(--text-light); margin-bottom:16px;">Cuéntanos qué negocio tienes y te ayudamos a crear la solución perfecta.</p>
+    <a href="#" class="btn btn-accent" onclick="showSection('contacto')">HABLAR CON E-PRINT 2</a>
   </div>
 </section>
 
-<!-- ─── PRODUCTS ──────────────────────────────────── -->
-
-<section class="section" id="products">
-  <div class="section-label">产品与报价</div>
-  <h2 class="section-title">高品质印刷 · 批发价格</h2>
-  <p class="section-desc">专为企业提供批量印刷服务。所有产品支持定制尺寸、纸张和工艺。以下价格为起批量价格，含基础设计排版服务。</p>
-
-  <div class="products-grid">
-    <div class="product-card">
-      <div class="product-icon-wrap">
-        <svg viewBox="0 0 48 48" fill="none">
-          <rect x="5" y="7" width="38" height="34" rx="2" stroke="#f77f00" stroke-width="1.5"/>
-          <line x1="11" y1="15" x2="37" y2="15" stroke="#f77f00" stroke-width="1.2" opacity="0.5"/>
-          <line x1="11" y1="20" x2="33" y2="20" stroke="#f77f00" stroke-width="1.2" opacity="0.35"/>
-          <line x1="11" y1="25" x2="28" y2="25" stroke="#f77f00" stroke-width="1.2" opacity="0.25"/>
-          <line x1="11" y1="30" x2="36" y2="30" stroke="#f77f00" stroke-width="1.2" opacity="0.15"/>
-          <path d="M24 7 L24 3 L20 3 M24 3 L28 3" stroke="#f77f00" stroke-width="1.5" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <h3>餐厅菜单</h3>
-      <p>高档覆膜菜单 · 多折页设计 · 防水防油<br>封面300g铜版纸 + 内页200g铜版纸 · 覆亚膜</p>
-      <div class="pricing-table">
-        <div class="pricing-row recommended">
-          <span class="qty">1,000 <span>份起</span><span class="badge">推荐</span></span>
-          <span class="price">XX</span>
-        </div>
-        <div class="pricing-row"><span class="qty">2,000 <span>份</span></span><span class="price">XX</span></div>
-        <div class="pricing-row"><span class="qty">5,000 <span>份</span></span><span class="price">XX</span></div>
-        <div class="pricing-inquiry">咨询此产品</div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-icon-wrap">
-        <svg viewBox="0 0 48 48" fill="none">
-          <rect x="8" y="3" width="17" height="42" rx="2" stroke="#00b4d8" stroke-width="1.5"/>
-          <rect x="23" y="7" width="17" height="38" rx="2" stroke="#00b4d8" stroke-width="1.5"/>
-          <line x1="13" y1="13" x2="20" y2="13" stroke="#00b4d8" stroke-width="1.2" opacity="0.45"/>
-          <line x1="13" y1="18" x2="19" y2="18" stroke="#00b4d8" stroke-width="1.2" opacity="0.35"/>
-          <line x1="13" y1="23" x2="22" y2="23" stroke="#00b4d8" stroke-width="1.2" opacity="0.25"/>
-          <line x1="28" y1="16" x2="35" y2="16" stroke="#00b4d8" stroke-width="1.2" opacity="0.45"/>
-          <line x1="28" y1="21" x2="34" y2="21" stroke="#00b4d8" stroke-width="1.2" opacity="0.35"/>
-          <line x1="28" y1="26" x2="36" y2="26" stroke="#00b4d8" stroke-width="1.2" opacity="0.25"/>
-        </svg>
-      </div>
-      <h3>产品目录</h3>
-      <p>全彩印刷 · 胶装或骑马钉 · 封面烫金/UV可选<br>封面250g特种纸 + 内页157g铜版纸 · 亮光印刷</p>
-      <div class="pricing-table">
-        <div class="pricing-row recommended">
-          <span class="qty">1,000 <span>本起</span><span class="badge">推荐</span></span>
-          <span class="price">XX</span>
-        </div>
-        <div class="pricing-row"><span class="qty">2,000 <span>本</span></span><span class="price">XX</span></div>
-        <div class="pricing-row"><span class="qty">5,000 <span>本</span></span><span class="price">XX</span></div>
-        <div class="pricing-inquiry">咨询此产品</div>
-      </div>
-    </div>
-
-    <div class="product-card">
-      <div class="product-icon-wrap">
-        <svg viewBox="0 0 48 48" fill="none">
-          <rect x="11" y="17" width="26" height="24" rx="2" stroke="#7209b7" stroke-width="1.5"/>
-          <rect x="5" y="9" width="26" height="24" rx="2" stroke="#7209b7" stroke-width="1.5" opacity="0.45"/>
-          <path d="M32 5 L36 9 L32 13" stroke="#7209b7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M36 9 L40 9" stroke="#7209b7" stroke-width="1.5" stroke-linecap="round"/>
-          <circle cx="21" cy="29" r="4" stroke="#7209b7" stroke-width="1.2" opacity="0.55"/>
-          <line x1="21" y1="25" x2="21" y2="33" stroke="#7209b7" stroke-width="1.2" opacity="0.35"/>
-          <line x1="17" y1="29" x2="25" y2="29" stroke="#7209b7" stroke-width="1.2" opacity="0.35"/>
-        </svg>
-      </div>
-      <h3>定制印刷</h3>
-      <p>宣传册 · 传单 · 海报 · 名片 · 包装盒<br>任何尺寸 · 任何纸张 · 任何工艺</p>
-      <div class="pricing-table">
-        <div class="pricing-row" style="justify-content:center;padding:16px;">
-          <span style="font-size:13px;color:var(--text-muted);">按需定制 · 联系我们获取报价</span>
-        </div>
-        <div class="pricing-inquiry" style="border-color:rgba(114,9,183,0.25);color:var(--c5);">联系定制</div>
-      </div>
+<!-- ─── VALUE MESSAGE ─── -->
+<section class="section" style="padding-top:0;text-align:center;">
+  <div class="section-inner">
+    <div style="display:flex; gap:32px; justify-content:center; flex-wrap:wrap; background: var(--bg-alt); border-radius: var(--radius); padding: 48px 24px; margin-top:-20px; position:relative;">
+      <div><span style="font-size:32px; font-weight:900; background:var(--gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">DISEÑAMOS.</span></div>
+      <div style="color:var(--text-light); font-size:28px; font-weight:200;">+</div>
+      <div><span style="font-size:32px; font-weight:900; background:var(--gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">IMPRIMIMOS.</span></div>
+      <div style="color:var(--text-light); font-size:28px; font-weight:200;">+</div>
+      <div><span style="font-size:32px; font-weight:900; background:var(--gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">IMPULSAMOS TU NEGOCIO.</span></div>
     </div>
   </div>
 </section>
 
-<!-- ─── FEATURES ──────────────────────────────────── -->
-
-<section class="section" id="features">
-  <div class="section-label">我们的优势</div>
-  <h2 class="section-title">为什么选择 E-print 2</h2>
-  <p class="section-desc">深入了解中国企业的需求，提供最适合的印刷解决方案。</p>
-
-  <div class="features-grid">
-    <div class="feature-item"><div class="feature-icon-wrap"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="14" stroke="#f77f00" stroke-width="1.5"/><path d="M18 10 L18 18 L24 22" stroke="#f77f00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h4>极速交货</h4><p>48小时内发货</p></div>
-    <div class="feature-item"><div class="feature-icon-wrap"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="14" r="5" stroke="#00b4d8" stroke-width="1.5"/><path d="M10 30 C10 24 14 20 18 20 C22 20 26 24 26 30" stroke="#00b4d8" stroke-width="1.5" stroke-linejoin="round"/></svg></div><h4>专业设计</h4><p>免费排版设计</p></div>
-    <div class="feature-item"><div class="feature-icon-wrap"><svg viewBox="0 0 36 36" fill="none"><rect x="7" y="12" width="22" height="17" rx="1" stroke="#e63946" stroke-width="1.5"/><path d="M18 4 L18 12" stroke="#e63946" stroke-width="1.5" stroke-linecap="round"/><path d="M14 8 L18 4 L22 8" stroke="#e63946" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h4>品质保证</h4><p>色彩精准稳定</p></div>
-    <div class="feature-item"><div class="feature-icon-wrap"><svg viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="12" stroke="#06d6a0" stroke-width="1.5"/><line x1="18" y1="9" x2="18" y2="18" stroke="#06d6a0" stroke-width="1.5"/><line x1="18" y1="18" x2="26" y2="18" stroke="#06d6a0" stroke-width="1.5"/></svg></div><h4>国际物流</h4><p>配送全球</p></div>
-    <div class="feature-item"><div class="feature-icon-wrap"><svg viewBox="0 0 36 36" fill="none"><rect x="6" y="10" width="24" height="18" rx="2" stroke="#f77f00" stroke-width="1.5"/><circle cx="14" cy="18" r="3" stroke="#f77f00" stroke-width="1.2"/><circle cx="24" cy="18" r="3" stroke="#f77f00" stroke-width="1.2" opacity="0.35"/></svg></div><h4>中文服务</h4><p>全程中文沟通</p></div>
-    <div class="feature-item"><div class="feature-icon-wrap"><svg viewBox="0 0 36 36" fill="none"><rect x="6" y="8" width="24" height="24" rx="2" stroke="#00b4d8" stroke-width="1.5"/><text x="18" y="25" text-anchor="middle" font-size="18" font-weight="900" fill="#00b4d8" font-family="'Noto Sans SC', sans-serif">€</text></svg></div><h4>价格透明</h4><p>无隐藏费用</p></div>
-  </div>
-</section>
-
-<!-- ─── CONTACT ───────────────────────────────────── -->
-
-<section class="section" id="contact">
-  <div class="contact-wrap">
-    <h2>联系我们</h2>
-    <p>如需定制报价或咨询更多详情，请通过以下方式联系我们。<br>我们将在24小时内回复您的询价。</p>
-    <div class="contact-methods">
-      <a href="mailto:info@eprint2.com" class="contact-btn primary">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
-        发送邮件
-      </a>
-      <a href="#" class="contact-btn">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 01-12.5 7.4L3 21l2.1-5.5A8.5 8.5 0 1121 11.5z"/></svg>
-        WhatsApp 咨询
-      </a>
-      <a href="#" class="contact-btn">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L15 22 11 13 2 9 22 2z"/></svg>
-        微信: Eprint2_China
-      </a>
+<!-- ─── CATEGORIES ─── -->
+<section class="section" id="sec-categories">
+  <div class="section-inner">
+    <h2 class="section-title">Nuestras <span>Categorías</span></h2>
+    <p class="section-sub">Todo lo que tu negocio necesita para comunicar y crecer.</p>
+    <div class="categories-grid">
+      <div class="cat-card" onclick="showSection('tienda')"><div class="icon">🃏</div><h3>Tarjetas de Visita</h3><p>Desde 19,90 €</p></div>
+      <div class="cat-card" onclick="showSection('restaurantes')"><div class="icon">🍽️</div><h3>Restaurantes</h3><p>Menús, cartas y más</p></div>
+      <div class="cat-card" onclick="showSection('publicidad')"><div class="icon">📢</div><h3>Publicidad</h3><p>Flyers, carteles, lonas</p></div>
+      <div class="cat-card" onclick="showSection('empresas')"><div class="icon">🏢</div><h3>Empresas</h3><p>Papelería corporativa</p></div>
+      <div class="cat-card" onclick="showSection('tienda')"><div class="icon">📄</div><h3>Papelería</h3><p>Folios, sobres, blocks</p></div>
+      <div class="cat-card" onclick="showSection('tienda')"><div class="icon">📦</div><h3>Packaging</h3><p>Cajas, bolsas, etiquetas</p></div>
+      <div class="cat-card" onclick="showSection('packs')"><div class="icon">🎯</div><h3>Packs para Negocios</h3><p>Todo en uno</p></div>
+      <div class="cat-card" onclick="showSection('tienda')"><div class="icon">🎁</div><h3>Merchandising</h3><p>Personaliza tu marca</p></div>
+      <div class="cat-card" onclick="showSection('diseno')"><div class="icon">🎨</div><h3>Diseño Gráfico</h3><p>Creamos tu imagen</p></div>
     </div>
   </div>
 </section>
 
-<footer><p>&copy; 2026 E-print 2 · 数码印刷</p></footer>
+<!-- ─── PRODUCTS ─── -->
+<section class="section" id="sec-tienda" style="display:none;">
+  <div class="section-inner">
+    <h2 class="section-title">Nuestros <span>Productos</span></h2>
+    <p class="section-sub">Selecciona, configura y pide. Nosotros nos encargamos del resto.</p>
+    <div class="products-grid" id="productGrid"></div>
+  </div>
+</section>
+
+<!-- ─── RESTAURANTS ─── -->
+<section id="sec-restaurantes" style="display:none;">
+  <div class="restaurant-hero">
+    <h2>🍽️ TODO LO QUE TU RESTAURANTE NECESITA</h2>
+    <p>Menús, cartas, manteles personalizados, flyers, tarjetas, carteles, QR, packaging. Todo con la calidad que tu negocio merece.</p>
+    <a href="#" class="btn btn-primary btn-lg" onclick="showSection('tienda')">PREPARAR MI RESTAURANTE</a>
+  </div>
+</section>
+
+<!-- ─── PACKS ─── -->
+<section class="section" id="sec-packs" style="display:none;">
+  <div class="section-inner">
+    <h2 class="section-title">Packs para <span>tu Negocio</span></h2>
+    <p class="section-sub">Todo lo que necesitas para empezar o crecer, en un solo pack.</p>
+    <div class="packs-grid">
+      <div class="pack-card featured">
+        <div class="badge" style="background:var(--c2);color:#fff;">MÁS VENDIDO</div>
+        <h3>🚀 Pack Emprende</h3>
+        <ul>
+          <li>Diseño de logo básico</li>
+          <li>500 tarjetas de visita</li>
+          <li>500 flyers</li>
+          <li>250 tarjetas de fidelización</li>
+          <li>5 carteles A3</li>
+        </ul>
+        <div class="pack-old-price">375 €</div>
+        <div class="pack-price">299 €</div>
+        <div class="pack-save">🔥 AHORRA 20 %</div>
+        <a href="#" class="btn btn-primary" style="width:100%;justify-content:center;" onclick="addToCart({id:'pack-emprende',name:'Pack Emprende',price:299,img:'🚀'});showSection('tienda')">QUIERO EMPEZAR MI NEGOCIO</a>
+      </div>
+      <div class="pack-card">
+        <h3>🍽️ Pack Restaurante</h3>
+        <ul>
+          <li>50 cartas de menú</li>
+          <li>50 cartas de bebidas</li>
+          <li>100 flyers</li>
+          <li>10 carteles A4</li>
+          <li>Diseño incluido</li>
+        </ul>
+        <div class="pack-price">149<span style="font-size:16px;">,90 €</span></div>
+        <a href="#" class="btn btn-secondary" style="width:100%;justify-content:center;" onclick="addToCart({id:'pack-restaurante',name:'Pack Restaurante',price:149.9,img:'🍽️'});showSection('tienda')">AÑADIR</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EMPRESAS ─── -->
+<section class="section" id="sec-empresas" style="display:none;">
+  <div class="section-inner">
+    <h2 class="section-title">Soluciones para <span>Empresas</span></h2>
+    <p class="section-sub">Papelería corporativa, branding, packaging y todo lo que tu empresa necesita para proyectar profesionalidad.</p>
+    <div class="products-grid" id="empresaGrid"></div>
+  </div>
+</section>
+
+<!-- ─── PUBLICIDAD ─── -->
+<section class="section" id="sec-publicidad" style="display:none;">
+  <div class="section-inner">
+    <h2 class="section-title">Publicidad <span>Impresa</span></h2>
+    <p class="section-sub">Flyers, carteles, lonas, roll-ups. Haz que tu marca se vea.</p>
+    <div class="products-grid" id="publicidadGrid"></div>
+  </div>
+</section>
+
+<!-- ─── DISEÑO ─── -->
+<section class="section" id="sec-diseno" style="display:none;">
+  <div class="section-inner">
+    <h2 class="section-title">Solicita tu <span>Diseño</span></h2>
+    <p class="section-sub">Déjanos crear el diseño perfecto para tu proyecto.</p>
+    <div style="max-width:600px;margin:0 auto;">
+      <div class="form-row">
+        <div class="form-group"><label>Nombre</label><input type="text" id="diseno-name" placeholder="Tu nombre"></div>
+        <div class="form-group"><label>Empresa</label><input type="text" id="diseno-empresa" placeholder="Nombre de tu empresa"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Email</label><input type="email" id="diseno-email" placeholder="tu@email.com"></div>
+        <div class="form-group"><label>Teléfono</label><input type="tel" id="diseno-tel" placeholder="+34 ..."></div>
+      </div>
+      <div class="form-group"><label>¿Qué necesitas?</label><textarea id="diseno-desc" placeholder="Cuéntanos qué necesitas diseñar..."></textarea></div>
+      <div class="form-group"><label>Referencias visuales (opcional)</label><input type="text" id="diseno-refs" placeholder="Enlaces, ideas, colores..."></div>
+      <div class="form-file" onclick="document.getElementById('diseno-file').click()">
+        <p style="font-size:14px;color:var(--text-light);">📎 Arrastra tu logo o imágenes aquí o haz clic</p>
+        <input type="file" id="diseno-file" style="display:none" multiple accept="image/*,application/pdf">
+      </div>
+      <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center;margin-top:16px;" onclick="submitDiseno()">SOLICITAR DISEÑO</button>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRESUPUESTO ─── -->
+<section class="section" id="sec-presupuesto" style="display:none;">
+  <div class="section-inner">
+    <h2 class="section-title">Solicita tu <span>Presupuesto</span></h2>
+    <p class="section-sub">¿No encuentras lo que buscas? Cuéntanos qué necesitas y te enviaremos la mejor solución.</p>
+    <div style="max-width:600px;margin:0 auto;">
+      <div class="form-row">
+        <div class="form-group"><label>Nombre</label><input type="text" id="pres-name"></div>
+        <div class="form-group"><label>Empresa</label><input type="text" id="pres-empresa"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Email</label><input type="email" id="pres-email"></div>
+        <div class="form-group"><label>Teléfono</label><input type="tel" id="pres-tel"></div>
+      </div>
+      <div class="form-group"><label>Producto / ¿Qué necesitas?</label><input type="text" id="pres-producto" placeholder="Ej: Tarjetas de visita, menús..."></div>
+      <div class="form-row">
+        <div class="form-group"><label>Cantidad</label><input type="number" id="pres-cantidad" placeholder="500"></div>
+        <div class="form-group"><label>Presupuesto aproximado</label><input type="text" id="pres-budget" placeholder="Ej: 100 €"></div>
+      </div>
+      <div class="form-group"><label>Descripción detallada</label><textarea id="pres-desc" placeholder="Cuéntanos todo lo que necesitas..."></textarea></div>
+      <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center;" onclick="submitPresupuesto()">SOLICITAR PRESUPUESTO</button>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACTO ─── -->
+<section class="section" id="sec-contacto" style="display:none;">
+  <div class="section-inner">
+    <h2 class="section-title">Habla con <span>E-print 2</span></h2>
+    <p class="section-sub">Estamos aquí para ayudarte. Cuéntanos tu proyecto.</p>
+    <div style="max-width:500px;margin:0 auto;">
+      <div class="form-group"><label>Nombre</label><input type="text" id="cont-name"></div>
+      <div class="form-group"><label>Email</label><input type="email" id="cont-email"></div>
+      <div class="form-group"><label>Mensaje</label><textarea id="cont-msg" placeholder="¿En qué podemos ayudarte?"></textarea></div>
+      <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center;" onclick="submitContacto()">ENVIAR MENSAJE</button>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONFIGURATOR ─── -->
+<div class="configurator-overlay" id="configOverlay">
+  <div class="configurator">
+    <button class="config-close" onclick="closeConfig()">&times;</button>
+    <h2 id="configName">Producto</h2>
+    <div class="base-price" id="configBasePrice">Desde 19,90 €</div>
+    
+    <div class="config-group"><label>Cantidad</label><input type="number" id="configQty" value="500" min="50" step="50" onchange="calcConfigPrice()"></div>
+    <div class="config-group"><label>Formato / Tamaño</label>
+      <select id="configFormat" onchange="calcConfigPrice()">
+        <option value="standard">Estándar (85×55 mm)</option>
+        <option value="cuadrada">Cuadrada (55×55 mm)</option>
+        <option value="grande">Grande (90×55 mm)</option>
+      </select>
+    </div>
+    <div class="config-group"><label>Papel / Gramaje</label>
+      <select id="configPaper" onchange="calcConfigPrice()">
+        <option value="350">350 g mate</option>
+        <option value="350b">350 g brillo</option>
+        <option value="300">300 g mate premium</option>
+        <option value="400">400 g premium</option>
+      </select>
+    </div>
+    <div class="config-group"><label>Impresión</label>
+      <select id="configPrint" onchange="calcConfigPrice()">
+        <option value="1c">Una cara</option>
+        <option value="2c">Doble cara (+20%)</option>
+      </select>
+    </div>
+    <div class="config-group"><label>Acabado</label>
+      <select id="configFinish" onchange="calcConfigPrice()">
+        <option value="mate">Mate</option>
+        <option value="brillo">Brillo</option>
+        <option value="soft">Soft Touch (+25%)</option>
+        <option value="laminate">Laminado (+40%)</option>
+        <option value="uv">Barniz UV (+35%)</option>
+      </select>
+    </div>
+    <div class="config-group"><label>Diseño profesional E-print 2</label>
+      <select id="configDesign" onchange="calcConfigPrice()">
+        <option value="no">No, ya tengo mi diseño</option>
+        <option value="yes">Sí, necesito diseño (+39,90 €)</option>
+      </select>
+    </div>
+    
+    <div class="config-total">TOTAL: <span id="configTotal">0,00 €</span></div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn btn-primary" style="flex:1;justify-content:center;" onclick="addConfiguredToCart()">AÑADIR AL CARRITO</button>
+      <button class="btn btn-secondary" style="flex:1;justify-content:center;" onclick="closeConfig()">SEGUIR VIENDO</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CART ─── -->
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3>🛒 Tu carrito</h3>
+    <button class="cart-close" onclick="toggleCart()">&times;</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer">
+    <div class="cart-total"><span>Total</span><span id="cartTotal">0,00 €</span></div>
+    <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center;" onclick="checkout()">FINALIZAR PEDIDO</button>
+  </div>
+</div>
+
+<!-- ─── ADMIN PANEL ─── -->
+<section class="section" id="sec-admin" style="display:none;">
+  <div class="section-inner">
+    <h2 class="section-title">Panel de <span>Administración</span></h2>
+    <p class="section-sub">Gestión de pedidos, clientes y productos.</p>
+    <div style="display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;">
+      <button class="btn btn-secondary" onclick="adminTab('pedidos')">📋 Pedidos</button>
+      <button class="btn btn-secondary" onclick="adminTab('productos')">📦 Productos</button>
+      <button class="btn btn-secondary" onclick="adminTab('clientes')">👥 Clientes</button>
+      <button class="btn btn-secondary" onclick="adminTab('presupuestos')">📝 Presupuestos</button>
+    </div>
+    <div id="adminContent"><p style="color:var(--text-light);">Selecciona una sección.</p></div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-e2">E2</div>
+      <p style="margin-top:8px;font-size:13px;color:rgba(255,255,255,0.5);">Ecosistema empresarial</p>
+      <div style="margin-top:16px;"><strong style="color:#fff;">E-print 2</strong></div>
+      <p style="font-size:12px;color:rgba(255,255,255,0.4);">Diseño · Impresión · Soluciones gráficas</p>
+    </div>
+    <div>
+      <h4>Productos</h4>
+      <a href="#" onclick="showSection('tienda')">Tarjetas de Visita</a>
+      <a href="#" onclick="showSection('restaurantes')">Restaurantes</a>
+      <a href="#" onclick="showSection('tienda')">Flyers y Carteles</a>
+      <a href="#" onclick="showSection('packs')">Packs</a>
+      <a href="#" onclick="showSection('diseno')">Diseño</a>
+    </div>
+    <div>
+      <h4>Ecosistema</h4>
+      <a href="#">E2</a>
+      <a href="#" style="font-weight:600;color:#fff;">E-print 2</a>
+      <a href="#">E-Tech 2</a>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <a href="#" onclick="showSection('contacto')">Contacto</a>
+      <a href="#" onclick="showSection('presupuesto')">Presupuesto</a>
+      <a href="https://wa.me/34XXXXXXXXX">WhatsApp</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 E2 — Todos los derechos reservados. E-print 2 es una línea de negocio de E2.
+  </div>
+</footer>
+
+<!-- ─── WHATSAPP ─── -->
+<a href="https://wa.me/34XXXXXXXXX" class="whatsapp-float" target="_blank">
+  <i class="fab fa-whatsapp"></i>
+</a>
 
 <script>
-const canvas = document.getElementById('fogCanvas');
-const ctx = canvas.getContext('2d');
-let W, H;
-
-function resize() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resize);
-resize();
-
-const COLORS = [
-  [230, 57, 70],    // red
-  [247, 127, 0],    // orange
-  [0, 180, 216],    // cyan
-  [114, 9, 183],    // purple
-  [6, 214, 160],    // green
-  [247, 37, 133],   // pink
-  [67, 97, 238]     // blue
+// ─── DATA ───
+const products = [
+  {id:'tarjetas', cat:'tienda', name:'Tarjetas de Visita', price:19.90, img:'🃏', desc:'Tarjetas personalizadas. Elige papel, acabado y cantidad.'},
+  {id:'tarjetas-premium', cat:'tienda', name:'Tarjetas Premium', price:79.90, img:'✨', desc:'Tarjetas de alta gama con acabados premium.', badge:'hot'},
+  {id:'menus', cat:'restaurante', name:'Menús y Cartas para Restaurantes', price:59.90, img:'📋', desc:'Menús, cartas de vinos y comidas personalizadas.'},
+  {id:'flyers', cat:'publicidad', name:'Flyers', price:29.90, img:'📄', desc:'Flyers publicitarios para cualquier evento o promoción.'},
+  {id:'tripticos', cat:'publicidad', name:'Trípticos y Folletos', price:49.90, img:'📑', desc:'Folletos plegados profesionalmente.'},
+  {id:'fidelizacion', cat:'tienda', name:'Tarjetas de Fidelización', price:39.90, img:'💳', desc:'Fideliza a tus clientes con tarjetas personalizadas.'},
+  {id:'carteles', cat:'publicidad', name:'Carteles', price:19.90, img:'🖼️', desc:'Carteles desde A4 hasta A0.'},
+  {id:'manteles', cat:'restaurante', name:'Manteles Personalizados', price:79.90, img:'🧻', desc:'Manteles de papel o tela con tu marca.'},
+  {id:'packaging', cat:'empresa', name:'Packaging Personalizado', price:99.90, img:'📦', desc:'Cajas, bolsas y envoltorios con tu marca.'},
+  {id:'papeleria', cat:'empresa', name:'Papelería Corporativa', price:49.90, img:'📎', desc:'Sobres, hojas, blocks, carpetas personalizadas.'},
+  {id:'rollup', cat:'publicidad', name:'Roll-ups y Lonas', price:89.90, img:'🏴', desc:'Roll-ups publicitarios y lonas para eventos.'},
+  {id:'pegatinas', cat:'tienda', name:'Pegatinas y Etiquetas', price:24.90, img:'🏷️', desc:'Etiquetas adhesivas para productos y packaging.'}
 ];
 
-// ─── Fog clouds ─────────────────────────────────────
+let cart = JSON.parse(localStorage.getItem('eprint2_cart') || '[]');
+let orders = JSON.parse(localStorage.getItem('eprint2_orders') || '[]');
+let presupuestos = JSON.parse(localStorage.getItem('eprint2_presup') || '[]');
+let currentConfig = null;
 
-class FogCloud {
-  constructor() {
-    this.colorIdx = Math.floor(Math.random() * COLORS.length);
-    this.targetIdx = (this.colorIdx + 1 + Math.floor(Math.random() * (COLORS.length - 1))) % COLORS.length;
-    this.color = [...COLORS[this.colorIdx]];
-    this.transition = Math.random();
-    this.speed = Math.random() * 0.003 + 0.002;
-    this.reset();
-  }
-  reset() {
-    this.x = Math.random() * W;
-    this.y = Math.random() * H;
-    this.radius = 150 + Math.random() * 350;
-    this.opacity = Math.random() * 0.035 + 0.01;
-    this.vx = (Math.random() - 0.5) * 0.15;
-    this.vy = (Math.random() - 0.5) * 0.1;
-    this.pulse = Math.random() * Math.PI * 2;
-    this.pulseSpeed = Math.random() * 0.002 + 0.001;
-    this.pulseAmp = Math.random() * 0.15 + 0.05;
-  }
-  update() {
-    this.x += this.vx;
-    this.y += this.vy;
-    this.pulse += this.pulseSpeed;
-    // Color transition
-    this.transition += this.speed;
-    if (this.transition >= 1) {
-      this.transition = 0;
-      this.colorIdx = this.targetIdx;
-      this.targetIdx = (this.targetIdx + 1 + Math.floor(Math.random() * 2)) % COLORS.length;
+// ─── PRODUCT GRID ───
+function renderProducts(cat, gridId) {
+  const grid = document.getElementById(gridId);
+  const items = products.filter(p => p.cat === cat);
+  grid.innerHTML = items.map(p => `
+    <div class="product-card">
+      <div class="product-card-img">
+        ${p.badge ? `<span class="prod-badge badge-${p.badge}">${p.badge === 'hot' ? 'TOP' : 'OFERTA'}</span>` : ''}
+        ${p.img}
+      </div>
+      <div class="product-card-body">
+        <h3>${p.name}</h3>
+        <div class="desc">${p.desc}</div>
+        <div class="price">${p.price.toFixed(2)} € <small>+ IVA</small></div>
+        <div class="prod-actions">
+          <button class="btn btn-primary" onclick="openConfig('${p.id}')">Configurar</button>
+          <button class="btn btn-secondary" onclick="addToCart({id:'${p.id}',name:'${p.name}',price:${p.price},img:'${p.img}'})">+ Rápido</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─── CONFIGURATOR ───
+function openConfig(id) {
+  currentConfig = products.find(p => p.id === id);
+  document.getElementById('configName').textContent = currentConfig.name;
+  document.getElementById('configBasePrice').textContent = `Desde ${currentConfig.price.toFixed(2)} €`;
+  document.getElementById('configQty').value = 500;
+  document.getElementById('configTotal').textContent = calcConfigPrice() + ' €';
+  document.getElementById('configOverlay').classList.add('open');
+}
+
+function closeConfig() { document.getElementById('configOverlay').classList.remove('open'); }
+
+function calcConfigPrice() {
+  const base = currentConfig ? currentConfig.price : 19.90;
+  const qty = parseInt(document.getElementById('configQty').value) || 500;
+  const fmt = document.getElementById('configFormat').value;
+  const paper = document.getElementById('configPaper').value;
+  const print = document.getElementById('configPrint').value;
+  const finish = document.getElementById('configFinish').value;
+  const design = document.getElementById('configDesign').value;
+  
+  let price = base * (qty / 500) * 0.85;
+  if (fmt === 'grande') price *= 1.15;
+  if (print === '2c') price *= 1.2;
+  if (finish === 'soft') price *= 1.25;
+  if (finish === 'laminate') price *= 1.4;
+  if (finish === 'uv') price *= 1.35;
+  price = Math.round(price * 100) / 100;
+  
+  let designCost = design === 'yes' ? 39.90 : 0;
+  const total = price + designCost;
+  document.getElementById('configTotal').textContent = total.toFixed(2);
+  return total.toFixed(2);
+}
+
+function addConfiguredToCart() {
+  if (!currentConfig) return;
+  const qty = parseInt(document.getElementById('configQty').value) || 500;
+  const total = parseFloat(document.getElementById('configTotal').textContent);
+  cart.push({
+    id: currentConfig.id + '-' + Date.now(),
+    name: currentConfig.name + ' (' + qty + ' uds.)',
+    price: total,
+    img: currentConfig.img,
+    qty: 1,
+    config: {
+      qty, format: document.getElementById('configFormat').value,
+      paper: document.getElementById('configPaper').value,
+      print: document.getElementById('configPrint').value,
+      finish: document.getElementById('configFinish').value,
+      design: document.getElementById('configDesign').value
     }
-    const t = this.transition;
-    const tc = COLORS[this.colorIdx];
-    const tt = COLORS[this.targetIdx];
-    this.color = [
-      tc[0] + (tt[0] - tc[0]) * t,
-      tc[1] + (tt[1] - tc[1]) * t,
-      tc[2] + (tt[2] - tc[2]) * t
-    ];
-    // Wrap around edges
-    if (this.x < -this.radius) this.x = W + this.radius;
-    if (this.x > W + this.radius) this.x = -this.radius;
-    if (this.y < -this.radius) this.y = H + this.radius;
-    if (this.y > H + this.radius) this.y = -this.radius;
-  }
-  draw() {
-    const pulse = 1 + Math.sin(this.pulse) * this.pulseAmp;
-    const r = this.radius * pulse;
-    const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, r);
-    const [R, G, B] = this.color.map(Math.round);
-    grad.addColorStop(0, `rgba(${R},${G},${B},${this.opacity * 1.5})`);
-    grad.addColorStop(0.3, `rgba(${R},${G},${B},${this.opacity})`);
-    grad.addColorStop(0.6, `rgba(${R},${G},${B},${this.opacity * 0.4})`);
-    grad.addColorStop(1, `rgba(${R},${G},${B},0)`);
-    ctx.fillStyle = grad;
-    ctx.fillRect(this.x - r, this.y - r, r * 2, r * 2);
+  });
+  saveCart();
+  closeConfig();
+  showSection('home');
+  toggleCart();
+}
+
+// ─── CART ───
+function addToCart(p) {
+  cart.push({...p, id: p.id + '-' + Date.now(), qty: 1});
+  saveCart();
+  animateCart();
+}
+
+function saveCart() {
+  localStorage.setItem('eprint2_cart', JSON.stringify(cart));
+  updateCartUI();
+}
+
+function updateCartUI() {
+  document.getElementById('cartCount').textContent = cart.length;
+  const items = document.getElementById('cartItems');
+  if (cart.length === 0) { items.innerHTML = '<p style="color:var(--text-light);text-align:center;padding:40px 0;">Tu carrito está vacío</p>'; document.getElementById('cartTotal').textContent = '0,00 €'; return; }
+  items.innerHTML = cart.map((item,i) => `
+    <div class="cart-item">
+      <div class="cart-item-img">${item.img}</div>
+      <div class="cart-item-info">
+        <h4>${item.name}</h4>
+        <p>${item.config ? 'Configuración personalizada' : 'Pedido rápido'}</p>
+      </div>
+      <div class="cart-item-price">${item.price.toFixed(2)} €</div>
+      <div class="cart-item-remove" onclick="removeFromCart(${i})">&times;</div>
+    </div>
+  `).join('');
+  const total = cart.reduce((s,i) => s + i.price, 0);
+  document.getElementById('cartTotal').textContent = total.toFixed(2) + ' €';
+}
+
+function removeFromCart(i) { cart.splice(i,1); saveCart(); }
+
+function toggleCart() { document.getElementById('cartSidebar').classList.toggle('open'); }
+
+function animateCart() {
+  const c = document.getElementById('cartCount');
+  c.style.transform = 'scale(1.4)'; c.style.transition = 'transform .2s';
+  setTimeout(() => { c.style.transform = 'scale(1)'; }, 200);
+  toggleCart();
+}
+
+function checkout() {
+  if (cart.length === 0) return;
+  const order = {
+    id: 'EP-' + Date.now().toString(36).toUpperCase(),
+    date: new Date().toLocaleString('es-ES'),
+    items: [...cart],
+    total: cart.reduce((s,i) => s + i.price, 0),
+    status: 'PEDIDO RECIBIDO',
+    client: { name: '', email: '', phone: '', company: '' },
+    internal: { cost: 0, shipping: 0, design: 0, provider: '360imprimir', providerOrder: '', tracking: '', margin: 0, notes: '' }
+  };
+  document.getElementById('cartSidebar').classList.remove('open');
+  // Simple checkout form
+  const name = prompt('Nombre completo:');
+  if (!name) return;
+  const email = prompt('Email:');
+  const phone = prompt('Teléfono:');
+  order.client = { name, email, phone, company: '' };
+  orders.push(order);
+  localStorage.setItem('eprint2_orders', JSON.stringify(orders));
+  cart = []; saveCart();
+  alert('✅ ¡Pedido recibido ' + order.id + '! Te enviaremos un email con la confirmación.');
+}
+
+// ─── SECTIONS ───
+function showSection(id) {
+  document.querySelectorAll('[id^="sec-"]').forEach(s => s.style.display = 'none');
+  const el = document.getElementById('sec-' + id);
+  if (el) el.style.display = 'block';
+  // Special sections
+  if (id === 'tienda') { renderProducts('tienda','productGrid'); renderProducts('restaurante','productGrid'); }
+  if (id === 'empresas') renderProducts('empresa','empresaGrid');
+  if (id === 'publicidad') renderProducts('publicidad','publicidadGrid');
+  if (id === 'admin') adminTab('pedidos');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleMobile() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// ─── SUBMIT FORMS ───
+function submitDiseno() {
+  const data = {
+    name: document.getElementById('diseno-name').value,
+    empresa: document.getElementById('diseno-empresa').value,
+    email: document.getElementById('diseno-email').value,
+    tel: document.getElementById('diseno-tel').value,
+    desc: document.getElementById('diseno-desc').value,
+    refs: document.getElementById('diseno-refs').value,
+    date: new Date().toLocaleString('es-ES')
+  };
+  if (!data.name || !data.email) { alert('Completa nombre y email.'); return; }
+  const disenos = JSON.parse(localStorage.getItem('eprint2_disenos') || '[]');
+  disenos.push(data);
+  localStorage.setItem('eprint2_disenos', JSON.stringify(disenos));
+  alert('✅ Solicitud de diseño recibida. Te contactaremos pronto.');
+  showSection('home');
+}
+
+function submitPresupuesto() {
+  const data = {
+    name: document.getElementById('pres-name').value,
+    empresa: document.getElementById('pres-empresa').value,
+    email: document.getElementById('pres-email').value,
+    tel: document.getElementById('pres-tel').value,
+    producto: document.getElementById('pres-producto').value,
+    cantidad: document.getElementById('pres-cantidad').value,
+    budget: document.getElementById('pres-budget').value,
+    desc: document.getElementById('pres-desc').value,
+    date: new Date().toLocaleString('es-ES')
+  };
+  if (!data.name || !data.email) { alert('Completa nombre y email.'); return; }
+  presupuestos.push(data);
+  localStorage.setItem('eprint2_presup', JSON.stringify(presupuestos));
+  alert('✅ Presupuesto solicitado. Te enviaremos una respuesta pronto.');
+  showSection('home');
+}
+
+function submitContacto() {
+  alert('✅ Mensaje enviado. Te responderemos lo antes posible.');
+  showSection('home');
+}
+
+// ─── ADMIN ───
+function adminTab(tab) {
+  const c = document.getElementById('adminContent');
+  if (tab === 'pedidos') {
+    if (orders.length === 0) { c.innerHTML = '<p style="color:var(--text-light);">No hay pedidos aún.</p>'; return; }
+    c.innerHTML = orders.map(o => `
+      <div style="background:var(--card);border-radius:var(--radius);padding:20px;margin-bottom:16px;border:1px solid var(--border);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
+          <div><strong>${o.id}</strong><br><span style="font-size:13px;color:var(--text-light);">${o.date}</span></div>
+          <div style="text-align:right;">
+            <span style="font-weight:800;color:var(--c2);">${o.total.toFixed(2)} €</span>
+            <div style="font-size:12px;padding:4px 8px;border-radius:20px;background:${o.status === 'PEDIDO RECIBIDO' ? '#fef3c7' : '#d1fae5'};display:inline-block;margin-top:4px;">${o.status}</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:13px;color:var(--text-light);">
+          ${o.client.name ? 'Cliente: ' + o.client.name + ' · ' + o.client.email : 'Sin datos de cliente'}
+        </div>
+        <details style="margin-top:8px;">
+          <summary style="font-size:13px;cursor:pointer;color:var(--c2);">Gestión interna</summary>
+          <div style="margin-top:8px;padding:12px;background:var(--bg-alt);border-radius:8px;font-size:13px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <div>Precio cliente: <strong>${o.total.toFixed(2)} €</strong></div>
+              <div>Coste proveedor: <input type="text" value="${o.internal.cost}" style="width:60px;padding:2px 4px;font-size:12px;"></div>
+              <div>Diseño: <input type="text" value="${o.internal.design}" style="width:60px;padding:2px 4px;font-size:12px;"></div>
+              <div>Envío: <input type="text" value="${o.internal.shipping}" style="width:60px;padding:2px 4px;font-size:12px;"></div>
+              <div>Proveedor: ${o.internal.provider}</div>
+              <div>Nº pedido: <input type="text" placeholder="Nº proveedor" style="width:100px;padding:2px 4px;font-size:12px;"></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    `).join('');
+  } else if (tab === 'presupuestos') {
+    if (presupuestos.length === 0) { c.innerHTML = '<p style="color:var(--text-light);">No hay presupuestos solicitados.</p>'; return; }
+    c.innerHTML = presupuestos.map(p => `
+      <div style="background:var(--card);border-radius:var(--radius);padding:20px;margin-bottom:16px;border:1px solid var(--border);">
+        <strong>${p.name}</strong> · ${p.empresa || '—'}<br>
+        <span style="font-size:13px;color:var(--text-light);">${p.email} · ${p.tel || '—'} · ${p.date}</span>
+        <p style="margin-top:8px;font-size:14px;">${p.desc}</p>
+        <div style="font-size:12px;color:var(--text-light);margin-top:8px;">${p.producto || ''} ${p.cantidad ? '× '+p.cantidad : ''} ${p.budget ? '· '+p.budget : ''}</div>
+      </div>
+    `).join('');
+  } else {
+    c.innerHTML = '<p style="color:var(--text-light);">Sección en desarrollo.</p>';
   }
 }
 
-const clouds = [];
-for (let i = 0; i < 18; i++) clouds.push(new FogCloud());
-
-function animate() {
-  ctx.clearRect(0, 0, W, H);
-  clouds.forEach(c => { c.update(); c.draw(); });
-  requestAnimationFrame(animate);
-}
-
-animate();
+// ─── INIT ───
+updateCartUI();
+renderProducts('tienda','productGrid');
 </script>
-
 </body>
 </html>
