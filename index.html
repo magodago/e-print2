@@ -20,7 +20,7 @@ body{font-family:Inter,sans-serif;color:var(--text);background:var(--bg);line-he
 .e2-top a{color:#fff;text-decoration:none;opacity:.7}.e2-top a:hover{opacity:1}
 .e2-top .sp{color:#333;margin:0 12px}
 header{position:sticky;top:0;z-index:99;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
-.h-in{max-width:var(--mw);margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.h-In{max-width:var(--mw);margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
 .logo{display:flex;align-items:center;gap:8px;text-decoration:none}
 .logo img{height:36px}
 nav.d{display:flex;align-items:center;gap:4px}
@@ -64,7 +64,7 @@ nav.d a.cta{background:var(--gradient-m);color:#fff;font-weight:600;padding:8px 
 .pa .btn{flex:1;justify-content:center;padding:10px;font-size:13px}
 .cart-s{position:fixed;top:0;right:0;width:90%;max-width:400px;height:100%;background:#fff;z-index:200;transform:translateX(100%);transition:transform .3s;box-shadow:var(--shad-lg);display:flex;flex-direction:column}
 .cart-s.o{transform:translateX(0)}
-.cart-h{padding:20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.cart-h{padding:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
 .cart-h h3{font-size:18px;font-weight:700}
 .close{cursor:pointer;font-size:24px;color:var(--text-l)}
 .cart-items{flex:1;overflow-y:auto;padding:20px}
@@ -103,6 +103,7 @@ footer{background:var(--e2-bg);color:#fff;padding:60px 24px 24px}
 .fi a:hover{color:#fff}
 .fb{text-align:center;color:rgba(255,255,255,.3);font-size:12px;margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1)}
 @media(max-width:768px){.sec{padding:48px 16px}.conf{padding:20px}}
+
 </style>
 </head>
 <body>
@@ -110,5 +111,48 @@ footer{background:var(--e2-bg);color:#fff;padding:60px 24px 24px}
 <div id="demoBar" class="demo-bar" style="display:none">⚡ MODO DEMO — Los precios mostrados son simulados. Solicita presupuesto para precio real.</div>
 
 <header>
-<div class="h-in">
-<a href="#" class="logo" onclick="showSec('home')"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIsAAAAwCAYAAAAhFIlJAAAxOElEQVR4nO18eZQdR3Xvt3p72/eZ0exaLMu7bGzLso0XbGMM2GADgYQkJDAJCQkJAUKALxCWA3EIeyAQ9kAI+wshEFgM2Ct2jI0XvMqyvUnWaNYZzcx7b2/13R9vqqt7ZmQk4H3H53zPOTOn3q2uru5+v193165fr4JrGRsREREJI9cjISIiEUSWB4iIiBARERH6/wSR5QEREZG4HpEQERER6P8DRJYHRESErjckIiIiItD/6Qg7LBERESEiIiIS4f8BIsuDiIhI0PWIiIiI0P+nEFkeREREpOuIyPIgIiIidD1Cf78RWR5ERESErkdERERE6HpFZHn4G4qIiIhQ/zYQWR5ERESErmNElgcRERGR6xERERH6/w2R5UFERETkeoSIiIiI0N8dIssDERERkRD0IkK/E5HlQUREROR6RIiIiAi9sogsDyIiIiK/lXj44Yf7p6enL52env7EuXPnPjE0NPTj4eHhH42MjPy7SNPx9YzI8iAiIiLyW4u/+qu/+vSZM2c+v2PHjr+54447XjM0NJRqt9sQ8nC73Q5EUZRSFCUUBYqiQFEUqKoKwzBQq9Vw5swZ7Nq169/f/e53f+DJJ5+0RNoiIiIiob1P4w1veMNbK5XKp/bv3//Ga665Bq2mBdMqgUxBr9uBpmnQNA22bcO2bdRqNYyOjkLXdfT19cG2beTzeViWhXK5jNOnT+Pxxx//t/e85z1/LNIY2V8hIiIiIb1PI5fLwc1kMnjHO96BfrsA1e6C3i/AWexCiDQajQZ0XYdlWSiVShgaGoLjMCgWizBNE4ZhYHFxEb7vY2pqCpqmwTRNDA0NYXV1FZZlob+/H4uLi1AUBQ899NBPP/jBD35QpDGyv0JEREQktPdpqKoKS9fR3dzE3X9/DyTrJqI8Dk3TUC6XkU6nodLDsywL2WwW6XQalmXBMAxYlgVVVTEwMADLsmAYBoaGhmDbNlRVhWEYmJ+fh2EYmJ+fR6lUQrFYxOzs7E987tu+7b2tra1YJBqR9ktEREREQnufhqqqaHctPNjz8EePPgnk/kdcdpElEUVRhFqthkKhAEmSkEwmMTc3B0mS0NfXh1wuh1QqhcHBQbTbbXi+D0mS4DgOTNOEbdvQNA2FQgHpdBqO46BUKqHVaiGXyyGTycB1XXiOg++87334X595P7U5iZQlIiIiEtL7NBzPg6ZIoKqI8+cXcPCGGyCJEZRKJQwMDGB1dRXZbBau6yKTyWB1dRVer4d0Og3btiFLEkqlEjY3N5FIJLC5uYmlpSUMDQ2hUqkgnU6j2+0imUxidXUViUQCu3btwuzsLMbGxvD2t78d//uHf4LH7rwLSY2IsUxERkREQnqfhisRFFmG3+2h8/QzuPXXH4SUeYUY2Wy2UCwWYdZpzY7yPR/b29uwLAvFYhG+7yORSCCfz2N6ehrpdBr5fB71eh3D2Sz6DAONRgOpVApDQ0NYX1+H4zjYt28f1tfXkc/n0el0YJom+vr6oGkaBgcH4XkeCoUCMpkMZmZmMDo8jE999cuoLLfRdgUkdo+RLEVERESk5z2Z5PJ5dNtt/PyXv8K05ztvtG0b+/btQ6fTQavVQr1eR7VaRblcxvrGBhRFQT6fR6PRgK7rWL9wAZ7nodvtQtM0CAG0Wi2Ypol6vY5utwvHcXD7bbehPbWNyxfP4dH5GZAvI2l0RERERKTnPRnD9jBNE41mCw+tfRne5U8hkUjAtm1omoZ6vY5isYh6vQ7P8+C6LhzHgWVZWFlZge/7GB0dhe/7aLfbaLVasG0btm0jkUig2+kADrH77h/9I5YbDexfOIdbWg5GIhGRERERkZ73ZDiOw+I4Dj71qU/DyRcwb... [truncated
+<div class="h-In">
+<a href="#" class="logo" onclick="showSec('home')"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIsAAAAwCAYAAAAhFIlJAAAxOElEQVR4nO18eZQdR3Xvt3p72/eZ0exaLMu7bGzLso0XbGMM2GADgYQkJDAJCQkJAUKALxCWA3EIeyAQ9kAI+wshEFgM2Ct2jI0XvMqyvUnWaNYZzcx7b2/13R9vqqt7ZmQk4H3H53zPOTOn3q2uru5+v193165fr4JrGRsREREJI9cjISIiEUSWB4iIiBARERH6/wSR5QEREZG4HpEQERER6P8DRJYHRESErjckIiIiItD/6Qg7LBERESEiIiIS4f8BIsuDiIhI0PWIiIiI0P+nEFkeREREpOuIyPIgIiIidD1Cf78RWR5ERESErkdERERE6HpFZHn4G4qIiIhQ/zYQWR5ERESErmNElgcRERGR6xERERH6/w2R5UFERETkeoSIiIiI0N8dIssDERERkRD0IkK/E5HlQUREROR6RIiIiAi9sogsDyIiIiK/lXj44Yf7p6enL52env7EuXPnPjE0NPTj4eHhH42MjPy7SNPx9YzI8iAiIiLyW4u/+qu/+vSZM2c+v2PHjr+54447XjM0NJRqt9sQ8nC73Q5EUZRSFCUUBYqiQFEUqKoKwzBQq9Vw5swZ7Nq169/f/e53f+DJJ5+0RNoiIiIiob1P4w1veMNbK5XKp/bv3//Ga665Bq2mBdMqgUxBr9uBpmnQNA22bcO2bdRqNYyOjkLXdfT19cG2beTzeViWhXK5jNOnT+Pxxx//t/e85z1/LNIY2V8hIiIiIb1PI5fLwc1kMnjHO96BfrsA1e6C3i/AWexCiDQajQZ0XYdlWSiVShgaGoLjMCgWizBNE4ZhYHFxEb7vY2pqCpqmwTRNDA0NYXV1FZZlob+/H4uLi1AUBQ899NBPP/jBD35QpDGyv0JEREQktPdpqKoKS9fR3dzE3X9/DyTrJqI8Dk3TUC6XkU6nodLDsywL2WwW6XQalmXBMAxYlgVVVTEwMADLsmAYBoaGhmDbNlRVhWEYmJ+fh2EYmJ+fR6lUQrFYxOzs7E987tu+7b2tra1YJBqR9ktEREREQnufhqqqaHctPNjz8EePPgnk/kdcdpElEUVRhFqthkKhAEmSkEwmMTc3B0mS0NfXh1wuh1QqhcHBQbTbbXi+D0mS4DgOTNOEbdvQNA2FQgHpdBqO46BUKqHVaiGXyyGTycB1XXiOg++87334X595P7U5iZQlIiIiEtL7NBzPg6ZIoKqI8+cXcPCGGyCJEZRKJQwMDGB1dRXZbBau6yKTyWB1dRVer4d0Og3btiFLEkqlEjY3N5FIJLC5uYmlpSUMDQ2hUqkgnU6j2+0imUxidXUViUQCu3btwuzsLMbGxvD2t78d//uHf4LH7rwLSY2IsUxERkREQnqfhisRFFmG3+2h8/QzuPXXH4SUeYUY2Wy2UCwWYdZpzY7yPR/b29uwLAvFYhG+7yORSCCfz2N6ehrpdBr5fB71eh3D2Sz6DAONRgOpVApDQ0NYX1+H4zjYt28f1tfXkc/n0el0YJom+vr6oGkaBgcH4XkeCoUCMpkMZmZmMDo8jE999cuoLLfRdgUkdo+RLEVERESk5z2Z5PJ5dNtt/PyXv8K05ztvtG0b+/btQ6fTQavVQr1eR7VaRblcxvrGBhRFQT6fR6PRgK7rWL9wAZ7nodvtQtM0CAG0Wi2Ypol6vY5utwvHcXD7bbehPbWNyxfP4dH5GZAvI2l0RERERKTnPRnD9jBNE41mCw+tfRne5U8hkUjAtm1omoZ6vY5isYh6vQ7P8+C6LhzHgWVZWFlZge/7GB0dhe/7aLfbaLVasG0btm0jkUig2+kADrH77h/9I5YbDexfOIdbWg5GIhGRERERkZ73ZDiOw+I4Dj71qU/DyRcwb" alt="E-print 2"></a>
+<nav class="d">
+<a href="#" onclick="showSec('home')">Inicio</a>
+<a href="#" onclick="showSec('tienda')">Productos</a>
+<a href="#" onclick="showSec('presupuesto')">Presupuestos</a>
+<a href="#" onclick="showSec('contacto')">Contacto</a>
+<a href="#" class="cta" onclick="toggleCart()">Carrito (<span id="cartCount">0</span>)</a>
+</nav>
+<div class="ham" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</div>
+</header>
+
+<div id="app"></div>
+
+<footer>
+<div class="fi">
+<div class="ft-e2">E-print 2</div>
+<p style="color:rgba(255,255,255,.5);font-size:14px;margin-top:8px">Diseño e Impresión · Una empresa de E2</p>
+<div style="display:flex;gap:40px;margin-top:20px;flex-wrap:wrap">
+<div>
+<h4>Productos</h4>
+<a href="#" onclick="showSec('tienda')">Tarjetas de Visita</a>
+<a href="#" onclick="showSec('tienda')">Flyers</a>
+<a href="#" onclick="showSec('tienda')">Menús</a>
+<a href="#" onclick="showSec('tienda')">Carteles</a>
+</div>
+<div>
+<h4>Empresa</h4>
+<a href="#" onclick="showSec('contacto')">Contacto</a>
+<a href="#" onclick="showSec('presupuesto')">Presupuestos</a>
+</div>
+<div>
+<h4>Contacto</h4>
+<a href="tel:+34695602625">+34 695 60 26 25</a>
+<a href="mailto:david@neolabs.me">david@neolabs.me</a>
+</div>
+</div>
+<div class="fb">© 2026 E-print 2 · E2 Ecosystem · Todos los derechos reservados</div>
+</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
