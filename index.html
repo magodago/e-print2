@@ -266,47 +266,63 @@ const PRODUCTS = {
 
 // ─── PRICING ENGINE ───
 const Pricing = {
-  demoCosts: {
-    tarjetas: { base:8.50, ship:3.50 },
-    flyers: { base:12.00, ship:5.00 },
-    menus: { base:25.00, ship:5.00 },
-    manteles: { base:35.00, ship:6.00 },
-    carteles: { base:5.00, ship:5.00 },
-    pegatinas: { base:10.00, ship:3.50 },
-    fidelizacion: { base:18.00, ship:4.00 }
+  // Base costs per product (what we pay the supplier)
+  baseCosts: {
+    tarjetas: { base:4.50, per100:1.20, gramFactor:{'250 g':0.7,'300 g':0.85,'350 g':1.0,'400 g':1.3}, acabadoFactor:{'Sin acabado':1.0,'Mate':1.0,'Brillo':1.05,'Soft Touch':1.35,'Laminado':1.5}, extraCost:{'Esquinas redondeadas':3.00}, ship:3.50 },
+    flyers: { base:6.00, per100:0.80, fmtFactor:{'A6 (105×148)':0.5,'A5 (148×210)':0.7,'A4 (210×297)':1.0,'A3 (297×420)':1.8}, gramFactor:{'115 g':0.6,'135 g':0.7,'170 g':0.8,'250 g':1.0,'300 g':1.2}, acabadoFactor:{'Sin acabado':1.0,'Mate':1.0,'Brillo':1.05}, ship:5.00 },
+    menus: { base:12.00, per10:0.60, fmtFactor:{'A5 (148×210)':0.6,'A4 (210×297)':1.0,'A3 (297×420)':1.8}, gramFactor:{'250 g':0.8,'300 g':1.0,'350 g':1.2}, acabadoFactor:{'Mate':1.0,'Brillo':1.05,'Laminado mate':1.4,'Laminado brillo':1.45}, ship:5.00 },
+    manteles: { base:15.00, per100:1.50, fmtFactor:{'A4 (210×297)':0.7,'A3 (297×420)':1.0}, ship:6.00 },
+    carteles: { base:2.50, fmtFactor:{'A4 (210×297)':0.3,'A3 (297×420)':0.5,'A2 (420×594)':1.0,'A1 (594×841)':1.8,'A0 (841×1189)':3.0}, matFactor:{'Papel estándar':1.0,'Papel premium 200g':1.4,'Fotográfico':2.0,'Vinilo':2.5}, ship:5.00 },
+    pegatinas: { base:5.00, per100:0.60, tamFactor:{'Pequeña (3×3 cm)':0.5,'Mediana (5×5 cm)':0.8,'Grande (10×10 cm)':1.0,'Personalizada':1.5}, matFactor:{'Papel':0.7,'Vinilo blanco':1.0,'Vinilo transparente':1.3}, ship:3.50 },
+    fidelizacion: { base:9.00, per100:1.00, gramFactor:{'300 g':0.8,'350 g':1.0,'400 g':1.3}, acabadoFactor:{'Mate':1.0,'Brillo':1.05,'Soft Touch':1.35,'Laminado':1.5}, extraCost:{'Espacio sellos':2.00,'Código QR':4.00,'Numeración':6.00}, ship:4.00 }
   },
   
-  getCosts(pid, cfg) {
-    const mode = DB.getMode();
-    const costs = DB.get('costs',{});
-    const key = pid+'_'+JSON.stringify(cfg);
-    if (mode==='production' && costs[key]) return costs[key];
-    // Demo: estimate from base
-    const base = this.demoCosts[pid]?.base ?? 10;
-    const ship = this.demoCosts[pid]?.ship ?? 5;
-    const qty = parseInt(cfg.qty) || 500;
-    const qtyFactor = Math.max(0.5, 500 / Math.max(qty,50));
-    return { product: Math.round(base * qtyFactor * 100)/100, shipping: ship };
+  calcCost(pid, cfg) {
+    const bc = this.baseCosts[pid];
+    if (!bc) return { product: 10, shipping: 5 };
+    const qty = parseInt(cfg.qty) || parseInt(cfg.cantidad) || 500;
+    const qtyFactor = bc.per100 ? qty / 100 : bc.per10 ? qty / 10 : 1;
+    let cost = (bc.base || 0) + (bc.per100 ? bc.per100 * qtyFactor : bc.per10 ? bc.per10 * qtyFactor : 0);
+    const fmt = cfg.formato || cfg.fmt || cfg.format || cfg.tamano || '';
+    if (bc.fmtFactor) {
+      for (const [k,v] of Object.entries(bc.fmtFactor)) { if (fmt.startsWith(k.split('(')[0]) || fmt===k) { cost *= v; break; } }
+    }
+    if (bc.tamFactor) {
+      for (const [k,v] of Object.entries(bc.tamFactor)) { if (fmt.includes(k)) { cost *= v; break; } }
+    }
+    const gram = cfg.gramaje || cfg.gram || '';
+    if (bc.gramFactor) {
+      for (const [k,v] of Object.entries(bc.gramFactor)) { if (gram.includes(k)) { cost *= v; break; } }
+    }
+    const acabado = cfg.acabado || cfg.finish || '';
+    if (bc.acabadoFactor) {
+      for (const [k,v] of Object.entries(bc.acabadoFactor)) { if (acabado.includes(k)) { cost *= v; break; } }
+    }
+    const mat = cfg.material || cfg.mat || '';
+    if (bc.matFactor) {
+      for (const [k,v] of Object.entries(bc.matFactor)) { if (mat.includes(k) || k.startsWith(mat)) { cost *= v; break; } }
+    }
+    let extras = 0;
+    const extra = cfg.extra || '';
+    if (bc.extraCost) {
+      for (const [k,v] of Object.entries(bc.extraCost)) { if (extra.includes(k)) { extras += v; } }
+    }
+    return { product: Math.round((cost + extras) * 100) / 100, shipping: bc.ship || 5 };
   },
   
   calcPrice(pid, cfg) {
-    const cost = this.getCosts(pid, cfg);
+    const costData = this.calcCost(pid, cfg);
     const margins = DB.get('margins',{});
-    const margin = margins[pid]?.pct ?? 50;
-    const method = margins[pid]?.method ?? 'pct';
-    let price;
-    if (method==='pct') price = cost.product * (1 + margin/100) + cost.shipping;
-    else price = cost.product * (1 + margin/100) + cost.shipping;
+    const margin = margins[pid]?.pct ?? 100; // Default 100% markup (cost × 2)
+    let price = costData.product * (1 + margin/100) + costData.shipping;
     price = Math.round(price * 100) / 100;
-    // Minimum
-    const minPrice = DB.get('minPrices',{})[pid] ?? 19.90;
+    const minPrice = DB.get('minPrices',{})[pid] ?? 9.90;
     if (price < minPrice) price = minPrice;
-    // Rounding
     const roundRule = DB.get('rounding','9');
     if (roundRule==='9') price = Math.floor(price) + 0.90;
-    else if (roundRule==='50') price = Math.round(price*2)/2;
     else if (roundRule==='99') price = Math.floor(price) + 0.99;
-    return { price: Math.round(price*100)/100, cost };
+    else if (roundRule==='50') price = Math.round(price*2)/2;
+    return { price: Math.round(price*100)/100, cost: costData };
   }
 };
 
@@ -418,8 +434,9 @@ function collectConfig() {
   for (const [field] of Object.entries(p.config)) {
     const el = document.getElementById('cfg_'+field);
     if (el) {
-      const key = field.replace(/s$/,'');
-      cfg[key] = el.value;
+      // Map field names to pricing keys
+      const keyMap = {formatos:'formato',cantidades:'cantidad',impresion:'impresion',gramajes:'gramaje',acabados:'acabado',extras:'extra',orientacion:'orientacion',paginas:'paginas',papel:'papel',material:'material',forma:'forma',tamanos:'tamano'};
+      cfg[keyMap[field] || field] = el.value;
     }
   }
   const disenoEl = document.getElementById('cfg_diseno');
